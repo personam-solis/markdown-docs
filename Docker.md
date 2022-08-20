@@ -4,7 +4,7 @@
 
 - [Docker](#docker)
   - [Cheatsheet](#cheatsheet)
-    - [Overview](#overview)
+    - [Common](#common)
     - [Run](#run)
     - [Build](#build)
     - [Image](#image)
@@ -16,7 +16,7 @@
 ## Cheatsheet
 This will have some quick commands to reference. 
 
-### Overview
+### Common
 | Command | Description |
 | --- | --- |
 | `docker version` | Check the version of docker client and server(daemon) and if they are talking |
@@ -28,6 +28,9 @@ This will have some quick commands to reference.
 | `docker container top <CONTAINER>` | Get the current running processes on a container |
 | `docker container inspect <CONTAINER>` | Get the details of how a container is configured as JSON |
 | `docker container stats` | Get performance stats on **all** containers in a real-time stream (You can also specify a container name) |
+| `docker container start -ai <CONTAINER>` | Similar to the run command with `-it` but used on a **stopped** container |
+| `docker container exec <CONTAINER> <COMMAND>` | Execute a command from within a container. If the container is running an application, you dont need to start the application first |
+| `docker container exec -it <CONTAINER> bash | Run an interactive bash from within a **running** container. Useful for containers that run an application |
 
 ### Run
 | Command | Description |
@@ -64,3 +67,5 @@ This will have some quick commands to reference.
 * Docker containers are given a virtual IP on a private network w/n the engine
 * When a application image is ran (postgres, httpd, nginx) by default it executes the command needed to run, and will continue to run unless you specify for it to stop. 
   * When you do a `-it` the command is switched to a shell and if you exit the container will stop
+* If a container is running an application, simply attatching a session to it will only execute commands within that application
+  * i.e. a postgres container will already be running the postres *commandline session*, so you cant run commands like `/bin/systemctl status postgresql` but you **can** run `\l` which is a postgres commandline meta-command
