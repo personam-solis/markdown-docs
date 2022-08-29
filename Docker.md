@@ -47,7 +47,7 @@ Containers are widely used as they provide several services natively:
 <br>
 
 ### **What is Docker?**
-Docker is a platform that enables fast software development by creating a repeatable process called "Build, Ship, Run". 
+Docker is a platform that enables fast software development by creating a repeatable process called "Build, Ship, Run". Docker uses a service daemon that is "always running" to monitor the health and the configuration of the entire environment including volumes and networks. The daemon that is ran is called the **Docker Engine** and is installed alongside **containerd.io**.
 Docker creates a universal packaging to bundle applications dependencies within a container to allow for the Docker Engine to run that application on almost any host.
 
 Docker primary Innovations for development:
@@ -82,13 +82,7 @@ External repository that docker images are stored. A "local" registry can be cre
 <br>
 
 ### **Docker Container**
-
-<br>
-<br>
-
-### **How Does Docker Work?**
-Docker is a container technology that is a "always running" daemon on a host called Docker Engine. 
-The Docker Engine is the 
+Docker containers are just simply the docker image that is currently running or has stopped but not deleted. Docker containers can be converted into images but it is just easier to build the image and test it.
 
 **Keep in mind that if you need to install a package in a container, the container must have access to that package repository**
 
