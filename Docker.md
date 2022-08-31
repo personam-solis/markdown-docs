@@ -12,7 +12,7 @@
   - [**Docker Main Points**:](#docker-main-points)
 - [**Basic Command Cheatsheet**](#basic-command-cheatsheet)
   - [**Frequent**](#frequent)
-  - [** Docker Run**](#-docker-run)
+  - [**Docker Run**](#docker-run)
   - [**Docker Build**](#docker-build)
   - [**Docker Image**](#docker-image-1)
 - [**Dockerfile**](#dockerfile)
@@ -142,7 +142,7 @@ This will have some quick commands to reference.
 
 <br>
 
-## ** Docker Run**
+## **Docker Run**
 | Command | Description |
 | --- | --- |
 | `docker container run <OPTIONS> <IMAGE:TAG(optional)>` | Simply run a Docker container |
