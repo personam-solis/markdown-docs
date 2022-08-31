@@ -1,31 +1,34 @@
-# Docker
+# **Docker**
 
-![alt text](https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png "Docker")
+![docker logo](https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png "Docker")
 
-- [Docker](#docker)
-  - [**Basics**](#basics)
-    - [**What is a container?**](#what-is-a-container)
-    - [**What is Docker?**](#what-is-docker)
+- [**Docker**](#docker)
+- [**Basics**](#basics)
+  - [**What is a container?**](#what-is-a-container)
+  - [**What is Docker?**](#what-is-docker)
     - [**Docker Image**](#docker-image)
     - [**Docker Registry**](#docker-registry)
     - [**Docker Container**](#docker-container)
-    - [**How Does Docker Work?**](#how-does-docker-work)
   - [**Docker Main Points**:](#docker-main-points)
-  - [**Command Cheatsheet**](#command-cheatsheet)
-    - [**Common**](#common)
-    - [**Run**](#run)
-    - [**Build**](#build)
-    - [**Image**](#image)
-  - [**Dockerfile**](#dockerfile)
-    - [**Dockerfile Cheatsheet**](#dockerfile-cheatsheet)
+- [**Basic Command Cheatsheet**](#basic-command-cheatsheet)
+  - [**Frequent**](#frequent)
+  - [** Docker Run**](#-docker-run)
+  - [**Docker Build**](#docker-build)
+  - [**Docker Image**](#docker-image-1)
+- [**Dockerfile**](#dockerfile)
+  - [**Dockerfile Cheatsheet**](#dockerfile-cheatsheet)
+- [**Docker Volumes**](#docker-volumes)
+  - [**Volumes Cheatsheet**](#volumes-cheatsheet)
+- [**Docker Network**](#docker-network)
+  - [**Network Cheatsheet**](#network-cheatsheet)
 
 <br>
 <br>
 
 --------------------------
-## **Basics**
+# **Basics**
 
-### **What is a container?**
+## **What is a container?**
 Standard software that packages code, libraries, and dependencies, so an application can run quickly on many computing environments.
 
 Container software technology sits on top of the host's Kernel, Hardware, Drivers, and Operating System. Within a container you will only find files that are needed to run that container or application including the container OS. 
@@ -46,7 +49,7 @@ Containers are widely used as they provide several services natively:
 <br>
 <br>
 
-### **What is Docker?**
+## **What is Docker?**
 Docker is a platform that enables fast software development by creating a repeatable process called "Build, Ship, Run". Docker uses a service daemon that is "always running" to monitor the health and the configuration of the entire environment including volumes and networks. The daemon that is ran is called the **Docker Engine** and is installed alongside **containerd.io**.
 Docker creates a universal packaging to bundle applications dependencies within a container to allow for the Docker Engine to run that application on almost any host.
 
@@ -62,7 +65,7 @@ Docker has created the industry standard for how images are created and how cont
 ### **Docker Image**
 An image is the basic building block of a container. It is the "Gold Copy" of a container that has the bundled application with files and libraries. All images **are downloaded locally** from a central registry before they are ran. Manual downloads are done through the `docker image pull` command
 
-An image uses layers to to keep track of all changes and to modularize ***all*** containers. This prevents the necessity of re-downloading common aspects of images and to enable fast image builds by resuming from the last successful layer. 
+An image uses *layers* to to keep track of all changes and to modularize ***all*** containers. This prevents the necessity of re-downloading common aspects of images and to enable fast image builds by resuming from the last successful layer. 
 Each layer is "named" by creating a hash of that layer and storing it locally.
 > If the image `alpine:latest` is pulled it will download the 5.27MB image. If `apache:latest` is pulled afterwards, since the base image used is Alpine, only the layers that are not already present locally are created.
 
@@ -84,7 +87,11 @@ External repository that docker images are stored. A "local" registry can be cre
 ### **Docker Container**
 Docker containers are just simply the docker image that is currently running or has stopped but not deleted. Docker containers can be converted into images but it is just easier to build the image and test it.
 
-**Keep in mind that if you need to install a package in a container, the container must have access to that package repository**
+Since containers are closer to processes, they are not meant to be persistent. The purpose of a container is to be thrown away and be ran anywhere else with zero issues. Thus, the "internal" files that run the container should be volatile, and only a limited amount of objects should be persistent. 
+
+> Keep in mind that if you need to install a package in a container, the container must have access to that package repository
+
+As soon as a container is ran, docker.. network
 
 <br>
 <br>
@@ -105,6 +112,7 @@ Docker containers are just simply the docker image that is currently running or 
   * When you do a `-it` the command is switched to a shell and if you exit the container will stop
 * If a container is running an application, simply attaching a session to it will only execute commands within that application
   * i.e. a postgres container will already be running the Postgres *commandline session*, so you cant run commands like `/bin/systemctl status postgresql` but you **can** run `\l` which is a postgres commandline meta-command
+* A layer is a simple tarball that is hashed to ensure integrity and metadata.
 
 
 <br>
@@ -112,10 +120,10 @@ Docker containers are just simply the docker image that is currently running or 
 
 ------------------------------
 
-## **Command Cheatsheet**
+# **Basic Command Cheatsheet**
 This will have some quick commands to reference. 
 
-### **Common**
+## **Frequent**
 | Command | Description |
 | --- | --- |
 | `docker version` | Check the version of docker client and server(daemon) and if they are talking |
@@ -123,6 +131,7 @@ This will have some quick commands to reference.
 | `docker container run <OPTIONS> <IMAGE:TAG(optional)>` | Simply run a Docker container |
 | `docker container ls` | List all **running** containers. Add `-a` to see **unremoved stopped containers** |
 | `docker container stop <ID/NAME>` | Stop a container. You can also just use the first few characters of an ID to stop it as long as it it unique from the others |
+| `docker container rm <CONTAINER>` | Delete a stopped container manually |
 | `docker container logs <CONTAINER>` | Get the last few lines generated by **all** logs |
 | `docker container top <CONTAINER>` | Get the current running processes on a container |
 | `docker container inspect <CONTAINER>` | Get the details of how a container is configured as JSON |
@@ -133,7 +142,7 @@ This will have some quick commands to reference.
 
 <br>
 
-### **Run**
+## ** Docker Run**
 | Command | Description |
 | --- | --- |
 | `docker container run <OPTIONS> <IMAGE:TAG(optional)>` | Simply run a Docker container |
@@ -145,13 +154,13 @@ This will have some quick commands to reference.
 
 <br>
 
-### **Build**
+## **Docker Build**
 | Command | Description |
 | --- | --- |
 
 <br>
 
-### **Image**
+## **Docker Image**
 | Command | Description |
 | --- | --- |
 
@@ -160,8 +169,36 @@ This will have some quick commands to reference.
 
 ---------------------------------
 
-## **Dockerfile**
+# **Dockerfile**
+A Dockerfile is a local file that is used as a recipe to create an image. **All images need a parent image to be created**. 
+<br>
+
+## **Dockerfile Cheatsheet**
+| Stanza | Description |
+| --- | --- |
+
+<br>
+<br>
+
+---------------------------------
+
+# **Docker Volumes**
 
 <br>
 
-### **Dockerfile Cheatsheet**
+## **Volumes Cheatsheet**
+| Command | Description |
+| --- | --- |
+
+<br>
+<br>
+
+---------------------------------
+
+# **Docker Network**
+
+<br>
+
+## **Network Cheatsheet**
+| Command | Description |
+| --- | --- |
