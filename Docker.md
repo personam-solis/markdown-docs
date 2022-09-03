@@ -31,6 +31,7 @@
     - [**ENTRYPOINT**](#entrypoint)
   - [**Dockerfile skeleton**](#dockerfile-skeleton)
   - [**Dockerfile Cheatsheet**](#dockerfile-cheatsheet)
+- [**Docker and Security**](#docker-and-security)
 
 <br>
 <br>
@@ -73,20 +74,27 @@ Docker has created the industry standard for how images are created and how cont
 <br>
 
 ### **Docker Image**
-An image is the basic building block of a container. It is the "Gold Copy" of a container that has the bundled application with files and libraries. All images **are downloaded locally** from a central registry before they are ran. Manual downloads are done through the `docker image pull` command
+An image is the basic building block of a container. It is the immutable layer of a container that has the bundled application with files and libraries. Before a container is ran, Docker will look for the image locally, if the container image is not found then docker will download the image. Manual downloads are done through the `docker image pull` command. The only requirement an image has for the host that it will be ran under is that it must be the same architecture; x86/64, ARM64, AMD64, i386.
 
-An image uses *layers* to to keep track of all changes and to modularize ***all*** containers. This prevents the necessity of re-downloading common aspects of images and to enable fast image builds by resuming from the last successful layer. 
-Each layer is "named" by creating a hash of that layer and storing it locally.
+> Base images are usually very small (\~80MB), while applications images can be over 1GB.
+
+An image uses *layers* to to keep track of all changes and to modularize ***all*** containers. This prevents the necessity of re-downloading common aspects of images and to enable fast image builds by resuming from the last successful layer. Each layer is "named" by creating a hash of that layer and storing it locally.
+
 > If the image `alpine:latest` is pulled it will download the 5.27MB image. If `apache:latest` is pulled afterwards, since the base image used is Alpine, only the layers that are not already present locally are created.
 
-* All images include a tag to determine the version and variation that is pulled. If no tag is specified during a push/pull command then `latest` is **always** assumed.
+All images include a tag to determine the version or variation that is pulled. If no tag is specified during a push/pull command then `latest` is **always** assumed which is defined by the account that owns that image.
+
+> `nginx:latest` can be different than `nginx:alpine`
 
 The Docker image is the standard for how all industries create and define images called the **Open Container Image (OCI)** standard. 
 
 <br>
 
 ### **Docker Registry**
-External repository that docker images are stored. A "local" registry can be created to minimize the number of images that are pulled externally by using the `registry:2` Docker image.
+External repository that docker images are stored by organizations or users. All images within a registry are **immutable** unless you are one of the official contributors to that image.
+
+A "local" registry can be created to minimize the number of images that are pulled externally by using the `registry:2` Docker image.
+
 * Officially published images are commonly labeled  as the "base" image name along with its tag `python:3.9`, `alpine:latest`, `mysql:latest`. 
 * "Unofficial" images are labeled with the Docker Hub username, image name, then tag: `angrypanda/supersecuremysql:latest`
 
@@ -95,11 +103,11 @@ External repository that docker images are stored. A "local" registry can be cre
 <br>
 
 ### **Docker Container**
-Docker containers are just simply the docker image that is currently running or has stopped but not deleted. Docker containers can be converted into images but it is just easier to build the image and test it.
+Docker containers are just simply the Docker image that is currently running or has stopped but not deleted. Docker containers can be converted into images but it is just easier to build the image and test it.
 
-Since containers are closer to processes, they are not meant to be persistent. The purpose of a container is to be thrown away and be ran anywhere else with zero issues. Thus, the "internal" files that run the container should be volatile, and only a limited amount of objects should be persistent. 
+Since containers are just processes, they are not meant to be persistent. The purpose of a container is to be thrown away and be ran anywhere else with zero issues. Thus, the "internal" files that run the container should be volatile, and only a limited amount of objects should be persistent. 
 
-> Keep in mind that if you need to install a package in a container, the container must have access to that package repository
+> Keep in mind that if you need to install a package in a container, the container must have access to that package repository/executable
 
 When a container is ran:
 
@@ -130,6 +138,7 @@ When a container is ran:
 * If a container is running an application, simply attaching a session to it will only execute commands within that application
   * i.e. a postgres container will already be running the Postgres *commandline session*, so you cant run commands like `/bin/systemctl status postgresql` but you **can** run `\l` which is a postgres commandline meta-command
 * A layer is a simple tarball that is hashed to ensure integrity and metadata.
+* The main difference between an application and a base image is that an application has an application command that is ran when the container is started and does not need additional intervention to start. While a base image is usually used to create an application image.
 
 
 <br>
@@ -188,6 +197,7 @@ This will have some quick commands to reference.
 ---------------------------------
 
 # **Docker Volumes**
+All containers live within an isolated environment, it's what makes them so secure.
 
 <br>
 
@@ -270,8 +280,6 @@ ENV
 ENTRYPOINT
 ```
 
-
-
 <br>
 
 ## **Dockerfile skeleton**
@@ -300,3 +308,9 @@ ENTRYPOINT ["</PATH/TO/COMMAND", "<PARAM_1>". "<PARAM_2>"]
 ## **Dockerfile Cheatsheet**
 | Stanza | Description |
 | --- | --- |
+
+<br>
+<br>
+
+# **Docker and Security**
+* 
