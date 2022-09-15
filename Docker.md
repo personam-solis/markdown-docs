@@ -166,6 +166,8 @@ This will have some quick commands to reference.
 | `docker container exec <CONTAINER> <COMMAND>` | Execute a command from within a container. If the container is running an application, you don't need to start the application first |
 | `docker container exec -it <CONTAINER> bash` | Run an interactive bash from within a **running** container. Useful for containers that run an application |
 | `docker container port <CONTAINER>` | Shows exposed ports and where traffic is being forwarded to on that host |
+| `docker container cp <CONTAINER>:<SRC_PATH> <DEST_PATH>` | Copy files/folders from a container to local filesystem |
+| `docker container cp <DEST_PATH> <CONTAINER>:<SRC_PATH>` | Copy files/folders from the local filesystem to a container |
 
 <br>
 
@@ -178,6 +180,7 @@ This will have some quick commands to reference.
 | Option `-p <LOCALPORT>:<CONTAINERPORT>` | Expose a port within the container (if local port is used you will get an error) |
 | Option `--detach/-d` | Run the container in the background of the terminal session |
 | Option `--name <NAME>` | Specify a container name |
+| Option `--network <NETWORK_NAME>` | Attach container to a specific network at startup |
 
 <br>
 
@@ -213,6 +216,8 @@ All containers live within an isolated environment, it's what makes them so secu
 # **Docker Network**
 Docker networks follow the philosophy of "batteries included; but removable". When a container is ran it should just "work", but you should also have a lot of power to modify how packets flow within containers. Thus, you will rarely ever modify the default networks of the Docker Engine.
 
+All ports must be manually exposed to send/receive traffic on a container
+
 However, Docker allows you to modify the default network setting of the virtual networks, or you can create a completely new virtual network. This is useful to get a better sense of the traffic flow of an application, or to further lock down the IP space used within (i.e. Your network already uses a 192.168.x.x address space and you want to make it more obvious that they are different).
 
 <br>
@@ -227,12 +232,31 @@ You can manually create any number of networks, but the defaults are usually eno
 
 > All containers that are in the same virtual network can talk to each other freely. So a NGINX server with an exposed port can talk to a PostgreSQL server that does not have any exposed ports
 
+**Default Docker Networks:**
+* `bridge`/`docker0` - Default for all containers. All internal and external traffic are NAT'ed behind the host's IP
+* `host` - Bypass virtual network and directly attach to interface to gain performance. Sacrifices security model.
+* `none` - Removes all interfaces from container and only leaves it with `localhost` interface to completely isolate container.
+
+> If you create a network without specifying a driver, then it defaults to the bridge driver.
+
+**DNS:**
+* To communicate between containers you don't need the IP address or set static IP addresses
+* Docker uses the container name as the hostname so containers can talk to each other without a "discovery"
+  * You can manually set an alias to specify another name
+* If multiple containers on a *created* network have the same alias, they can respond to the same alias using DNS round-robin
+
 <br>
 
 ## **Network Cheatsheet**
 | Command | Description |
 | --- | --- |
+| `docker network ls` | Show Docker networks |
+| `docker network inspect <CONTAINER>\|<NETWORK>` | Show configurations of an entire network or of a container |
+| `docker network create <NAME>` | Create a Docker network |
+| `docker network connect\|disconnect <NETWORK> <CONTAINER>` | Attach/detach a network interface on a **running** container |
 | `docker container inspect --format '{{ .NetworkSettings.IPAddress }}' <CONTAINER>` | Get the private IP assigned to a container |
+| `docker network inspect --format '{{ .Containers }}' <NETWORK>` | Get all containers running on a specific network |
+| `docker container run <OPTIONS> --net-alias <ALIAS_NAME> <IMAGE>` | Create a container and give it a DNS alias |
 
 <br>
 <br>
