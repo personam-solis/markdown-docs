@@ -162,6 +162,9 @@ This will have some quick commands to reference.
 | --- | --- |
 | `docker version` | Check the version of docker client and server(daemon) and if they are talking |
 | `docker info` | Get all of the docker engine and configuration info |
+| `docker logs --follow <CONTAINER>` | Follow a container's STDOUT and STDERR |
+| `docker logs --details <CONTAINER>` | Get additional details from container logs such as environment variables |
+| `docker logs --tail <N> <CONTAINER>` | Get the last *N* number of lines from the container's logs |
 | `docker image history <IMAGE>` | The entire history of a single image including if layers were discovered |
 | `docker image prune` | Remove Docker images and cached layers when building an image (called dangling images) |
 | `docker image prune -a` | Remove dangling **and** unused images |
