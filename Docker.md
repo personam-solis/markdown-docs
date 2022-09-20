@@ -10,11 +10,13 @@
     - [**Docker Registry**](#docker-registry)
     - [**Docker Container**](#docker-container)
   - [**Docker Main Points**:](#docker-main-points)
-- [**Basic Command Cheatsheet**](#basic-command-cheatsheet)
-  - [**Frequent**](#frequent)
-  - [**Docker Run**](#docker-run)
+- [**Common Docker Command Cheatsheet**](#common-docker-command-cheatsheet)
+  - [**General Docker Commands**](#general-docker-commands)
+  - [**Docker Container Commands**](#docker-container-commands)
+  - [**Docker Run Options**](#docker-run-options)
 - [**Docker Storage**](#docker-storage)
   - [**Docker Volumes**](#docker-volumes)
+    - [**NFS Mount**](#nfs-mount)
   - [**Bind Mounts**](#bind-mounts)
   - [**Storage Cheatsheet**](#storage-cheatsheet)
 - [**Docker Network**](#docker-network)
@@ -150,15 +152,27 @@ When a container is ran:
 
 ------------------------------
 
-# **Basic Command Cheatsheet**
+# **Common Docker Command Cheatsheet**
 This will have some quick commands to reference. 
 
-## **Frequent**
+<br>
+
+## **General Docker Commands**
 | Command | Description |
 | --- | --- |
 | `docker version` | Check the version of docker client and server(daemon) and if they are talking |
 | `docker info` | Get all of the docker engine and configuration info |
 | `docker image history <IMAGE>` | The entire history of a single image including if layers were discovered |
+| `docker image prune` | Remove Docker images and cached layers when building an image (called dangling images) |
+| `docker image prune -a` | Remove dangling **and** unused images |
+| `docker system df` | See space used by containers, build cache, images, and volumes|
+| `docker system prune` | Clean up unused/dangling images |
+
+<br>
+
+## **Docker Container Commands**
+| Command | Description |
+| --- | --- |
 | `docker container run <OPTIONS> <IMAGE:TAG(optional)>` | Simply run a Docker container |
 | `docker container ls` | List all **running** containers. Add `-a` to see **unremoved stopped containers** (also use `docker ps -a`)|
 | `docker container stop <ID/NAME>` | Stop a container. You can also just use the first few characters of an ID to stop it as long as it it unique from the others |
@@ -176,16 +190,17 @@ This will have some quick commands to reference.
 
 <br>
 
-## **Docker Run**
-| Command | Description |
+## **Docker Run Options**
+| Option | Description |
 | --- | --- |
 | `docker container run <OPTIONS> <IMAGE:TAG(optional)>` | Simply run a Docker container |
-| Option `-it` | When container starts, launch an interactive terminal (`i` Interactive `t` simulate TTY). (**container shuts down when you exit**) |
-| Option `--rm` | Delete the container when it stops |
-| Option `-p <LOCALPORT>:<CONTAINERPORT>` | Expose a specific port, or range of ports within the container (if local port is used you will get an error) |
-| Option `--detach/-d` | Run the container in the background of the terminal session |
-| Option `--name <NAME>` | Specify a container name |
-| Option `--network <NETWORK_NAME>` | Attach container to a specific network at startup |
+| `-it` | When container starts, launch an interactive terminal (`i` Interactive `t` simulate TTY). (**container shuts down when you exit**) |
+| `--rm` | Delete the container when it stops |
+| `-p <LOCAL_PORT>:<CONTAINER_PORT>` | Expose a specific port, or range of ports within the container (if local port is used you will get an error) |
+| `--detach/-d` | Run the container in the background of the terminal session |
+| `--name <NAME>` | Specify a container name |
+| `--network <NETWORK_NAME>` | Attach container to a specific network at startup |
+| `--mount source=<VOL_NAME>,target=<CONTAINER_DIR>` | Mount a Docker volume to a directory in the container |
 
 <br>
 <br>
@@ -207,16 +222,37 @@ Also, when volumes are used the data stored within it exists *outside* of the co
 
 When a Docker volume is created all data is stored in the docker root directory. For Linux it is `/var/lib/docker/volumes`
 
+> When starting a container, use the option: `--mount source=<VOL_NAME>,target=<CONTAINER_DIR>`
+
+<br>
+
+### **NFS Mount**
+Using Docker volumes you can easily mount an NFS share to a container ***WITHOUT INSTALLING A PACKAGE***! Docker internal drivers take care of it. All you have to do is create a Docker volume that is attached to the NFS share and have the container use that Docker volume.
+
+```bash
+docker volume create --driver local \
+    --opt type=nfs \
+    --opt o=addr=<NFS_SERVER_IP>,rw \
+    --opt device=:/path/to/dir \
+    <VOL_NAME>
+```
+
 <br>
 
 ## **Bind Mounts**
+Bind mounts simply mount a hosts directory to a container's. Although **most** cases will use Docker volumes, bind mounts are *perfect for local development* because the files within the host's bound directory are "live" within the container. So it is easy to go to that directory and make changes or commits that are immediately recognized by the container.
 
+> To use a bind mount just specify the type as bind: `--mount type=bind,source=<HOST_DIR>,target=<CONTAINER_DIR>`
 
 <br>
 
 ## **Storage Cheatsheet**
 | Command | Description |
 | --- | --- |
+| `docker volume create <VOL_NAME>` | Create a new Docker volume |
+| `docker volume ls` | List all Docker volumes |
+| `docker volume rm <VOL_NAME>` | Remove a Docker volume |
+
 
 <br>
 <br>
@@ -351,9 +387,9 @@ Instructs the **person** running the container image to expose the specific a po
 
 You can also specify if the port is TCP/UDP (By default it will always assume TCP). If you need both to be exposed then they must be named separately.
 
-> To actually expose the port the container must be ran with the `-p <LOCALPORT>:<CONTAINERPORT>` option 
+> To actually expose the port the container must be ran with the `-p <LOCAL_PORT>:<CONTAINER_PORT>` option 
 
-> The syntax is always `<CONTAINERPORT>/<OPTIONAL_PROTO>`
+> The syntax is always `<CONTAINER_PORT>/<OPTIONAL_PROTO>`
 
 ```docker
 EXPOSE 443
@@ -424,7 +460,11 @@ ENTRYPOINT ["</PATH/TO/COMMAND", "<PARAM_1>". "<PARAM_2>"]
 <br>
 
 ## **Building An Image**
-To build an image you simply need to be in the local directory of the `Dockerfile` or tell it where the file is. Additional options past the tag are not required but highly encouraged.
+To build an image you simply need to be in the local directory of the `Dockerfile` or tell it where the file is. All build commands are read from the `Dockerfile` top-down. Additional options past the tag are not required but highly encouraged.
+
+When an image is being built it will create a local cache of each stanza so that only changed sections of the image are built while the others are called from the cache. This incredibly speeds up the image build time for minor changes.
+
+**ALWAYS KEEP FREQUENTLY CHANGED ITEMS AS THE LAST STEP IN THE DOCKER FILE TO ENSURE FAST BUILD TIME**
 
 > If you are publishing to a repository and *not* local, then you need to tag the image as: `<USERNAME>/<IMAGE>:<OPTIONAL_TAG>`
 
@@ -438,9 +478,9 @@ docker build -t angrypanda/primary_db:postgres # Build and tag for a specific us
 ## **Docker build Cheatsheet**
 | Option | Description |
 | --- | --- |
-| `--rm` | Remove any intermediate containers that were created when building the image |
+| `--rm` | Remove any created cached layers that were created when building the image |
 | `--no-cache` | Don't use previous successful layers and start from scratch |
-| `--memory=<MAXIMUM>[m|g]` | Set a *limit* for the amount of memory to use when building an image |
+| `--memory=<MAXIMUM>[m\|g]` | Set a *limit* for the amount of memory to use when building an image |
 
 <br>
 <br>
