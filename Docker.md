@@ -28,6 +28,7 @@
     - [**FROM**](#from)
     - [**LABEL**](#label)
     - [**WORKDIR**](#workdir)
+    - [**COPY**](#copy)
     - [**RUN**](#run)
     - [**EXPOSE**](#expose)
     - [**ENV**](#env)
