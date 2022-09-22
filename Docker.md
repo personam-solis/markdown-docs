@@ -362,6 +362,19 @@ WORKDIR /var/lib/httpd/
 
 <br>
 
+### **COPY**
+Copy a file from the local host or directory to the container recursively.
+
+> `COPY [--chown=<user>:<group>] <src>... <dest>`
+
+```docker
+COPY test.txt relativeDir/
+COPY testDocs /absolute/Dir/
+COPY --chown=55:mygroup files* /somedir/
+```
+
+<br>
+
 ### **RUN**
 Run a command in **shell**. Each `RUN` is its own layer so you can string several commands into one. 
 
