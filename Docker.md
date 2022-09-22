@@ -203,6 +203,7 @@ This will have some quick commands to reference.
 | `-p <LOCAL_PORT>:<CONTAINER_PORT>` | Expose a specific port, or range of ports within the container (if local port is used you will get an error) |
 | `--detach/-d` | Run the container in the background of the terminal session |
 | `--name <NAME>` | Specify a container name |
+| `--restart unless-stopped` | If a container stops due to an error, restart. Unless manually stopped. |
 | `--network <NETWORK_NAME>` | Attach container to a specific network at startup |
 | `--mount source=<VOL_NAME>,target=<CONTAINER_DIR>` | Mount a Docker volume to a directory in the container |
 
