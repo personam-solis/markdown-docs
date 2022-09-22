@@ -487,14 +487,18 @@ When an image is being built it will create a local cache of each stanza so that
 
 ```bash
 docker build -t primary_db . # Build from current dir and name the image with optional tag
-docker build -t angrypanda/primary_db:postgres # Build and tag for a specific user
+docker build -t angrypanda/primary_db:postgres . # Build and tag for a specific user
+docker build -t primary_db:mysql -f ./mysqlDockerfile . # Build image using a built file NOT named Dockerfile
 ```
+
+> ALWAYS END THE COMMAND WITH `.` This is pointing to the directory where the build files are and is easier ti build in the current dir.
 
 <br>
 
 ## **Docker build Cheatsheet**
 | Option | Description |
 | --- | --- |
+| `-f <FILENAME>` | Build Docker image using a build file that is **not** named *Dockerfile* |
 | `--rm` | Remove any created cached layers that were created when building the image |
 | `--no-cache` | Don't use previous successful layers and start from scratch |
 | `--memory=<MAXIMUM>[m\|g]` | Set a *limit* for the amount of memory to use when building an image |
