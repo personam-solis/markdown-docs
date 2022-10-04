@@ -295,6 +295,9 @@ You can manually create any number of networks, but the defaults are usually eno
 * Docker uses the container name as the hostname so containers can talk to each other without a "discovery"
   * You can manually set an alias to specify another name
 * If multiple containers on a *created* network have the same alias, they can respond to the same alias using DNS round-robin
+* To use container names as hostnames the containers **must** be part of a **created** network
+
+> Containers that are on the default bridge network have a copy of the host's `/etc/resolv.conf`. If it is a bridge custom network, then the Docker engine is what manages it, but uses the hosts `/etc/resolv.conf`
 
 <br>
 
