@@ -44,36 +44,38 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `git clone -b <BRANCH> <URL> --depth 1` | Only clone the most recent commit with no history |
 | `git log` | Show commit history |
 | `export EDITOR='</path/to/editor>'` | When rebasing or merging, resolve conflicts with your editor of choice like VS Code |
-| `git pull` | Perform a fetch, then merge into branch using `merge` or `rebase` | |`git branch -D <BRANCH> | Delete a local branch | 
-| git reflog expire --expire=4.weeks. ago | Expire history older than 4 weeks | | `git gc | "Garbage Collecting" Clean the current working directory and remove old references, prune loose objects older than 2 weeks, and compress objects. (obsolete if maintenance is on) | 
-| `git repack && git prune-packed | Review all changes in current working dir and repack them, then prune packs that no longer exist. (obsolete if maintenance is on) 
-| `git maintenance start | Instead of manually running cleanup commands, this runs a cleanup cron every HOUR in the background. This helps git run a lot faster. The maintenance that it performs is: <br> - **gc:** disabled <br> - **commit-graph:** hourly <br> - **pre-fetch:** hourly <br> - **loose-objects:** daily <br> - **incremental-repack: ** daily <br> - **pack-refs:** none | 
-| `git config --global alias. <NAME> <COMMAND W/O "git">" | Create a git alias that allows you to perform a command. DONT put the 'git' keywork in the command portion. Run with 'git <ALIAS>' | 
-| `git config --global alias. <NAME> '!<SCRIPT/COMMAND>' | Run a script or an external bash command using the git command | 
-| `git config --global column.ui auto | Set the default to show branches in a column view | 
-| `git config --global branch. sort -committerdate | Set the default to sort branches by when committed (most recent on top) | 
-| `git config --global fetch-writeCommitGraph true | Every time that a fetch is performed, update the commit graph to make fetch's faster. (obsolete if maintenance is on) | 
-| `git config --global core. untrackedcache true <br> git config --global core.fsmonitor true | Turn on filesystem monitor that watches inodes for changes in files so that subsequent `git status` are faster because it only looks at local *changes* instead of scanning. | 
+| `git pull` | Perform a fetch, then merge into branch using `merge` or `rebase` |
+| `git branch -D <BRANCH>` | Delete a local branch | 
+| `git reflog expire --expire=4.weeks.ago` | Expire history older than 4 weeks |
+| `git gc` | "Garbage Collecting" Clean the current working directory and remove old references, prune loose objects older than 2 weeks, and compress objects. (obsolete if maintenance is on) | 
+| `git repack && git prune-packed` | Review all changes in current working dir and repack them, then prune packs that no longer exist. (obsolete if maintenance is on) 
+| `git maintenance start` | Instead of manually running cleanup commands, this runs a cleanup cron every HOUR in the background. This helps git run a lot faster. The maintenance that it performs is: <br> - **gc:** disabled <br> - **commit-graph:** hourly <br> - **pre-fetch:** hourly <br> - **loose-objects:** daily <br> - **incremental-repack:** daily <br> - **pack-refs:** none | 
+| `git config --global alias.<NAME> <COMMAND W/O "git">` | Create a git alias that allows you to perform a command. DONT put the `git` keyword in the command portion. Run with `git <ALIAS>` | 
+| `git config --global alias.<NAME> '!<SCRIPT/COMMAND>'` | Run a script or an external bash command using the git command | 
+| `git config --global column.ui auto` | Set the default to show branches in a column view | 
+| `git config --global branch.sort -committerdate` | Set the default to sort branches by when committed (most recent on top) | 
+| `git config --global fetch-writeCommitGraph true` | Every time that a fetch is performed, update the commit graph to make fetch's faster. (obsolete if maintenance is on) | 
+| `git config --global core.untrackedcache true` <br> `git config --global core.fsmonitor true` | Turn on filesystem monitor that watches inodes for changes in files so that subsequent `git status` are faster because it only looks at local *changes* instead of scanning. | 
 
 <br>
 
 #### git aliases 
 Dont forget to start each with `git config --global` 
 | Alias | Truncated Command | Description | 
-|-------|----
-|`alias.staash | 'stash --all | Stash all uncommitted changes | 
-| alias.del | 'branch -D' | Delete a local branch. Supply branch name at the end 
-| alias.delr | 'push origin --delete" | Delete a **REMOTE** branch. Supply branch name at the end | 
-| `alias.polish | !git repack; git prune-packed; git gc' | Do a full cleanup of the current branch | 
-| `alias.expire | reflog expire --expire=4.weeks. ago | Do a reflog on the current repo | 
-| `alias. ls 'branch" | List the local tracked branches | 
-| `alias. lsr| `'branch -r'` | List the remote branches | 
-| `alias.undo 'reset --soft HEAD~1 | Undo the LAST commit while preserving all changes done before committing | 
+|-------|-------------------|-------------|
+| `alias.staash` | 'stash --all | Stash all uncommitted changes | 
+| `alias.del` | 'branch -D' | Delete a local branch. Supply branch name at the end 
+| `alias.delr` | 'push origin --delete" | Delete a **REMOTE** branch. Supply branch name at the end | 
+| `alias.polish` | !git repack; git prune-packed; git gc' | Do a full cleanup of the current branch | 
+| `alias.expire` | reflog expire --expire=4.weeks. ago | Do a reflog on the current repo | 
+| `alias.ls` | 'branch" | List the local tracked branches | 
+| `alias. lsr` | `'branch -r'` | List the remote branches | 
+| `alias.undo` | 'reset --soft HEAD~1 | Undo the LAST commit while preserving all changes done before committing | 
 | `alias.co` | 'checkout' | Checkout a local or remote **tracked** branch | 
-| `alias. BB` | 'blame -w -C -C -C | "BIG BLAME": In-depth blame of a single file or line. It follows the commits to show who actually made changes IN the file. You can supply a single file or for specific lines: `git BB <START_LINE>, <END_LINE> <FILE>` | 
-| `alias.BBL` | 'blame -w -C-C-C-L git BBL <START_LINE>, <END_LINE> <FILE> | 
-| "BIG BLAME" for specific lines in a file 
-| `alias.wdiff | diff --word-diff | Instead of showing *lines* of the diff, only show specific **items** that were changed in the location of the file | |`alias.red` | 'rebase -i development | Rebase the specified branch from development | 
+| `alias. BB` | 'blame -w -C -C -C | "BIG BLAME": In-depth blame of a single file or line. It follows the commits to show who actually made changes IN the file. You can supply a single file or for specific lines: `git BB <START_LINE>,<END_LINE> <FILE>` | 
+| `alias.BBL` | `blame -w -C-C-C-L` | "BIG BLAME" for specific lines in a file: `git BBL <START_LINE>, <END_LINE> <FILE>` | 
+| `alias.wdiff` | `diff --word-diff` | Instead of showing *lines* of the diff, only show specific **items** that were changed in the location of the file |
+| `alias.red` | `rebase -i development` | Rebase the specified branch from development | 
 
 <br>
 
@@ -81,15 +83,16 @@ Use this in your `.bashrc` to do a full checkout from a development branch for a
 To run, `gco <BRANCH>` 
 
 ```bash 
-cat << EOF >> ~/.bashrc 
-function gco(){ 
-} 
-git checkout development 
-git pull 
-git remote set-branches --add origin $1 
-git fetch 
-git branch -r 
+cat << EOF >> ~/.bashrc
+function gco(){
+git checkout development
+git pull
+git remote set-branches --add origin $1
+git fetch
+git branch -r
 git checkout $1
+}
+EOF
 ```
 
 <br>
@@ -99,8 +102,8 @@ git checkout $1
 1. Copy the .p12 or .pfx certificate file to your home directory 
 2. Generate an encryption key: `openssl pkcs12 -info -in <CERTIFICATE>. [pfx|p12] -nocerts -nodes -out <NAME>.key` 
 3. Generate a signing certificate: `openssl pkcs12 -in <CERTIFICATE>.pfx -clcerts -nokeys -out <NAME>_certificate.crt 
-* for p12 -> pem: `openssl pkcs12 -in <CERTIFICATE>.p12 -c1certs -nokeys -out <NAME>_certificate.pem` 
-4. Generate a RSA encryption key: openssl rsa -in <NAME>_encryption.key -out <NAME>_encryption.rsa`
+  * for p12 -> pem: `openssl pkcs12 -in <CERTIFICATE>.p12 -c1certs -nokeys -out <NAME>_certificate.pem` 
+4. Generate a RSA encryption key: `openssl rsa -in <NAME>_encryption.key -out <NAME>_encryption.rsa`
 
 <br>
 
@@ -112,22 +115,23 @@ Commands that are used to administrate a system. Probably needs Root
 <br>
 
 ### Cheat-sheet 
+
 <br> 
 
 ***Linux & Bash*** 
 
 | Command | Description | 
-|-- 
-| rpm2cpio <PATH_TO_RPM>.rpm \| cpio -idv | **EXTRACT** all contents of an RPM to see what files/settings get added to the system into **CURRENT DIR** | I`chronyc sources -v | Get current NTP servers that chronyd is pointed to | 
-| `chronyc tracking | Get stats for chrony config (/etc/chrony.conf) | 
-chronyc makestep | Force chrony to step to accurate time | 
-| `openssl s_client -connect <SERVERNAME>: <PORT> -showcerts | Check the 
-certificates of a remote or local server by specifying a port. This shows you if the certificates are installed, and the client is able to verify the server cert. I | journalctl -axe | look at logs even if it has very long lines (-a) with explanation text if available (-x) and go to the most recent line (-e`) | |`journalctl -u <SERVICE> | Show journal for a unit/service (Can be combined with any other argument) | 
-| journalctl -axf -u <SERVICE> | Follow (-f) a service even during service restart | 
-| `journalctl -b <BOOT ID> | View all logs from specific boot (-b); -1 for 
-previous boot, and `0` for current. (list with --list-boots`) | 
-| `journalctl -k | Show only kernel messages from the most recent boot | 
-| `journalctl -axe -p 0..3 | Show a single/range priority (-p) of log level. "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4), "notice" (5), "info" (6), "debug" (7) | 
+|---------|-------------|
+| `rpm2cpio <PATH_TO_RPM>.rpm \| cpio -idv` | **EXTRACT** all contents of an RPM to see what files/settings get added to the system into **CURRENT DIR** |
+| `chronyc sources -v` | Get current NTP servers that chronyd is pointed to |
+| `chronyc tracking` | Get stats for chrony config (/etc/chrony.conf) |
+| `chronyc makestep` | Force chrony to step to accurate time | 
+| `openssl s_client -connect <SERVERNAME>: <PORT> -showcerts` | Check the certificates of a remote or local server by specifying a port. This shows you if the certificates are installed, and the client is able to verify the server cert. |
+| `journalctl -axe` | look at logs even if it has very long lines (-a) with explanation text if available (-x) and go to the most recent line (-e`) | |`journalctl -u <SERVICE> | Show journal for a unit/service (Can be combined with any other argument) | 
+| `journalctl -axf -u <SERVICE>` | Follow (-f) a service even during service restart | 
+| `journalctl -b <BOOT ID>` | View all logs from specific boot (`-b`); `-1` for previous boot, and `0` for current. (list with `--list-boots`) | 
+| `journalctl -k` | Show only kernel messages from the most recent boot | 
+| `journalctl -axe -p 0..3` | Show a single/range priority (-p) of log level. "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4), "notice" (5), "info" (6), "debug" (7) | 
 | `journalctl -ax _COMM=splunk + _UID=1000 | Show logs filtered by the value of a field. If the separator "+" is used, two expressions may be combined in a logical **OR**. Common Fields are: <br> MESSAGE=` (Human readable message) <br> `_PID=` <br> `_UID=` <br> `_GID=` <br> `_COMM=` (Process name instead of PID) | 
 | `nfsstat -lc4 | Show NFSv4 Client statistics | 
 | `nfsstat -m` | Show nfs mounts | 
