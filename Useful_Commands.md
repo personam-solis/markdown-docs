@@ -130,47 +130,50 @@ previous boot, and `0` for current. (list with --list-boots`) |
 | `journalctl -axe -p 0..3 | Show a single/range priority (-p) of log level. "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4), "notice" (5), "info" (6), "debug" (7) | 
 | `journalctl -ax _COMM=splunk + _UID=1000 | Show logs filtered by the value of a field. If the separator "+" is used, two expressions may be combined in a logical **OR**. Common Fields are: <br> MESSAGE=` (Human readable message) <br> `_PID=` <br> `_UID=` <br> `_GID=` <br> `_COMM=` (Process name instead of PID) | 
 | `nfsstat -lc4 | Show NFSv4 Client statistics | 
-|`nfsstat -m` | Show nfs mounts | 
-|`nfsiostat-sysstat -h` | Show nfs I/O stats | 
-|`rpcdebug` | NFS Server/Client debug utility that prints nfs debug logs into the system log files | 
-`rpcdebug -m nfsd -s proc | Using the nfs-server module (-m nfsd`), set (-s`) process-level (proc) debug logs. You can also use "all" as a flag. To clear: `-m nfsd -c proc | 
-|`yum history list | List all recent yum transactions | 
-|`yum history info <ID_NUMBER> | Get detailed info of what was installed/upgraded. 
-`yum history rollback <ID_NUMBER>X | Revert all installed/modified packages to a previous state. | 
-|`sar <SWITCH> -f /var/log/sa/<DAY_OF_MONTH> | SA is a process that stores machine statistics into files every 10 minutes. Switches are: <br> `-A` Parse all stats <br> `-b` Parse I/O transactions <br> `-d` Parse Disk Utilization <br> `-n` Parse Network usage <br> -u Parse CPU statistics <br> `-r` Parse RAM max usage | 
-`df -i | List inode usage statistics per mount (including network mounts) | |`openssl x509 -in <CERTIFICATE .pem> -noout -text | Read the contents of a certificate file in PEM format. I 
+| `nfsstat -m` | Show nfs mounts | 
+| `nfsiostat-sysstat -h` | Show nfs I/O stats | 
+| `rpcdebug` | NFS Server/Client debug utility that prints nfs debug logs into the system log files | 
+| `rpcdebug -m nfsd -s proc | Using the nfs-server module (-m nfsd`), set (-s`) process-level (proc) debug logs. You can also use "all" as a flag. To clear: `-m nfsd -c proc | 
+| `yum history list | List all recent yum transactions | 
+| `yum history info <ID_NUMBER> | Get detailed info of what was installed/upgraded. 
+| `yum history rollback <ID_NUMBER>X | Revert all installed/modified packages to a previous state. | 
+| `sar <SWITCH> -f /var/log/sa/<DAY_OF_MONTH> | SA is a process that stores machine statistics into files every 10 minutes. Switches are: <br> `-A` Parse all stats <br> `-b` Parse I/O transactions <br> `-d` Parse Disk Utilization <br> `-n` Parse Network usage <br> -u Parse CPU statistics <br> `-r` Parse RAM max usage | 
+| `df -i | List inode usage statistics per mount (including network mounts) | |`openssl x509 -in <CERTIFICATE .pem> -noout -text | Read the contents of a certificate file in PEM format. I 
 | `openssl rsa -in <CERTIFICATE KEY> -noout -text | Read the contents of a certificate key in RSA | 
-`nc -zv <IP> <PORT> | use NetCat to determine if a port is reachable on a remote host | 
+| `nc -zv <IP> <PORT> | use NetCat to determine if a port is reachable on a remote host | 
 | `dd if=/dev/zero of=/dev/<DISK> bs=1M | Write all zeros to a disk to completely wipe it (1 MB increments). Perfect for corrupt virtual volumes that are not the primary disk and all other actions have failed. <br> **"I'm Not Playing Around"** | | `firewall-cmd --set-log-denied=all | Turn on firewall dropped packets logging (Logs stored in /var/log/firewalld_drop/`) | 
-`cat /proc/net/dev` | Lowest level of checking for all connected network interfaces. Also works in rescue or emergency mode. | 
-|`lsblk` | List all block devices and connected mounts | 
+| `cat /proc/net/dev` | Lowest level of checking for all connected network interfaces. Also works in rescue or emergency mode. | 
+| `lsblk` | List all block devices and connected mounts | 
 | `Ishw` | Show all hardware attached to system and driver info | 
-|`lspci | Show all devices connected to PCI/PCIe | 
-`lscpu` | Show CPU info including make/model/cores/speed | `multipath -11` | List number of HBA LUN/Volume Connections | 
-<br> 
-### Linux Self-Rescue 
-On RHEL 7/8 Perform the below actions if the system is unable to start the OS. **Make sure you know the GRUB password** otherwise you will have to manually rescue the device using an external ISO/Disk 
-1. When system is booting select the kernel you wish to booth from and hit `e` 
-2. You will be prompted for the GRUB password (if one has been implemented) 
-3. Look for the line in the Kernel that has "`linux16" or "`linux"; on that line append to the end `rd.break 
-4. Hit <Ctrl>+x to start Kernel using specified settings 
-5. Mount the root volume: mount -o remount rw /sysroot` 
-6. Change environment to use the root volume: chroot /sysroot` 
-7. Perform whatever actions you want. When done you need to force the OS to 
-"re-read" the system files 
-8. `touch /.autorelabel 
-9. Reboot 
-<br> 
+| `lspci | Show all devices connected to PCI/PCIe | 
+| `lscpu` | Show CPU info including make/model/cores/speed | `multipath -11` | List number of HBA LUN/Volume Connections | 
+
+<br>
+
+### Linux Self-Rescue
+On RHEL 7/8 Perform the below actions if the system is unable to start the OS. **Make sure you know the GRUB password** otherwise you will have to manually rescue the device using an external ISO/Disk
+1. When system is booting select the kernel you wish to booth from and hit `e`
+2. You will be prompted for the GRUB password (if one has been implemented)
+3. Look for the line in the Kernel that has "`linux16`" or "`linux`"; on that line append to the end `rd.break`
+4. Hit `<Ctrl>+x` to start Kernel using specified settings
+5. Mount the root volume: `mount -o remount rw /sysroot`
+6. Change environment to use the root volume: `chroot /sysroot`
+7. Perform whatever actions you want. When done you need to force the OS to "re-read" the system files
+8. `touch /.autorelabel`
+9. Reboot
+
+<br>
+
 ### fsck all partitions 
-1. Mount a CentOS 7 ISO 
-2. Power on and boot from disk 
-- 
-"Troubleshooting" 
-"Rescue a Centos System" 
-3. Go directly to a shell (Select 3) 
-4. Scan LVM disks: `pvs` 
-5. Activate volume groups: `vgchange -ay` 
-6. Scan logical volumes: `lvs` 
-7. List logical volume partitions ls -lah /dev/mapper/centos** 8. Force fsck scan and fix: 
-* For a simple journal and inode check and fix: e2fsck -fpv /dev/mapper/centos <VOLUME>` 
-* For a badblock read/write test and fix: e2fsck -fyccv /dev/mapper/centos <VOLUME>` 
+1. Mount a CentOS 7 ISO
+2. Power on and boot from disk
+  - "Troubleshooting" 
+  - "Rescue a Centos System"
+3. Go directly to a shell (Select 3)
+4. Scan LVM disks: `pvs`
+5. Activate volume groups: `vgchange -ay`
+6. Scan logical volumes: `lvs`
+7. List logical volume partitions `ls -lah /dev/mapper/centos*`
+8. Force fsck scan and fix:
+  - For a simple journal and inode check and fix: `e2fsck -fpv /dev/mapper/centos <VOLUME>` 
+  - For a badblock read/write test and fix: `e2fsck -fyccv /dev/mapper/centos <VOLUME>` 
