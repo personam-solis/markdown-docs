@@ -63,19 +63,19 @@ Regular commands **not** needing sudo. Useful for almost everyone
 Dont forget to start each with `git config --global` 
 | Alias | Truncated Command | Description | 
 |-------|-------------------|-------------|
-| `alias.staash` | 'stash --all | Stash all uncommitted changes | 
-| `alias.del` | 'branch -D' | Delete a local branch. Supply branch name at the end 
-| `alias.delr` | 'push origin --delete" | Delete a **REMOTE** branch. Supply branch name at the end | 
-| `alias.polish` | !git repack; git prune-packed; git gc' | Do a full cleanup of the current branch | 
-| `alias.expire` | reflog expire --expire=4.weeks. ago | Do a reflog on the current repo | 
-| `alias.ls` | 'branch" | List the local tracked branches | 
+| `alias.staash` | `'stash --all'` | Stash all uncommitted changes | 
+| `alias.del` | `'branch -D'` | Delete a local branch. Supply branch name at the end 
+| `alias.delr` | `'push origin --delete'` | Delete a **REMOTE** branch. Supply branch name at the end | 
+| `alias.polish` | `'!git repack; git prune-packed; git gc'` | Do a full cleanup of the current branch | 
+| `alias.expire` | `'reflog expire --expire=4.weeks.ago'` | Do a reflog on the current repo | 
+| `alias.ls` | `'branch'` | List the local tracked branches | 
 | `alias. lsr` | `'branch -r'` | List the remote branches | 
-| `alias.undo` | 'reset --soft HEAD~1 | Undo the LAST commit while preserving all changes done before committing | 
-| `alias.co` | 'checkout' | Checkout a local or remote **tracked** branch | 
-| `alias. BB` | 'blame -w -C -C -C | "BIG BLAME": In-depth blame of a single file or line. It follows the commits to show who actually made changes IN the file. You can supply a single file or for specific lines: `git BB <START_LINE>,<END_LINE> <FILE>` | 
-| `alias.BBL` | `blame -w -C-C-C-L` | "BIG BLAME" for specific lines in a file: `git BBL <START_LINE>, <END_LINE> <FILE>` | 
-| `alias.wdiff` | `diff --word-diff` | Instead of showing *lines* of the diff, only show specific **items** that were changed in the location of the file |
-| `alias.red` | `rebase -i development` | Rebase the specified branch from development | 
+| `alias.undo` | `'reset --soft HEAD~1'` | Undo the LAST commit while preserving all changes done before committing | 
+| `alias.co` | `'checkout'` | Checkout a local or remote **tracked** branch | 
+| `alias. BB` | `'blame -w -C -C -C'` | "BIG BLAME": In-depth blame of a single file or line. It follows the commits to show who actually made changes IN the file. You can supply a single file or for specific lines: `git BB <START_LINE>,<END_LINE> <FILE>` | 
+| `alias.BBL` | `'blame -w -C-C-C-L'` | "BIG BLAME" for specific lines in a file: `git BBL <START_LINE>, <END_LINE> <FILE>` | 
+| `alias.wdiff` | `'diff --word-diff'` | Instead of showing *lines* of the diff, only show specific **items** that were changed in the location of the file |
+| `alias.red` | `'rebase -i development'` | Rebase the specified branch from development | 
 
 <br>
 
