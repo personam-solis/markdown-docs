@@ -73,7 +73,7 @@ Dont forget to start each with `git config --global`
 | `alias.undo` | `'reset --soft HEAD~1'` | Undo the LAST commit while preserving all changes done before committing | 
 | `alias.co` | `'checkout'` | Checkout a local or remote **tracked** branch | 
 | `alias. BB` | `'blame -w -C -C -C'` | "BIG BLAME": In-depth blame of a single file or line. It follows the commits to show who actually made changes IN the file. You can supply a single file or for specific lines: `git BB <START_LINE>,<END_LINE> <FILE>` | 
-| `alias.BBL` | `'blame -w -C-C-C-L'` | "BIG BLAME" for specific lines in a file: `git BBL <START_LINE>, <END_LINE> <FILE>` | 
+| `alias.BBL` | `'blame -w -C -C -C -L'` | "BIG BLAME" for specific lines in a file: `git BBL <START_LINE>, <END_LINE> <FILE>` | 
 | `alias.wdiff` | `'diff --word-diff'` | Instead of showing *lines* of the diff, only show specific **items** that were changed in the location of the file |
 | `alias.red` | `'rebase -i development'` | Rebase the specified branch from development | 
 
