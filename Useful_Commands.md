@@ -101,7 +101,7 @@ EOF
 
 1. Copy the .p12 or .pfx certificate file to your home directory 
 2. Generate an encryption key: `openssl pkcs12 -info -in <CERTIFICATE>. [pfx|p12] -nocerts -nodes -out <NAME>.key` 
-3. Generate a signing certificate: `openssl pkcs12 -in <CERTIFICATE>.pfx -clcerts -nokeys -out <NAME>_certificate.crt 
+3. Generate a signing certificate: `openssl pkcs12 -in <CERTIFICATE>.pfx -clcerts -nokeys -out <NAME>_certificate.crt `
   * for p12 -> pem: `openssl pkcs12 -in <CERTIFICATE>.p12 -c1certs -nokeys -out <NAME>_certificate.pem` 
 4. Generate a RSA encryption key: `openssl rsa -in <NAME>_encryption.key -out <NAME>_encryption.rsa`
 
