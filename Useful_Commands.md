@@ -27,10 +27,10 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `openssl s_client -connect <HOST> : <PORT> -tls1` | Open an ssl connection to HOST |
 | `openssl s_client -connect <HOST/IP>: <PORT> -tls1_1 -quiet` | Check if Insecure TLS 1.1 responds |
 | `testssl -E <URI/HOST> : <PORT>` | Check the response of a server for what protocols, cypher, and order the server responds with |
-| `<COMMAND> &> <FILE>` | Redirect both regular (stdout) and error messages ( `stderr ) from a command, script, or program into a file. |
-| `<COMMAND> 2>&1` | Redirect (`stderr ) to (stdout). It makes grep's easier as it will not let errors to be their own message |
+| `<COMMAND> &> <FILE>` | Redirect both regular (`stdout`) and error messages (`stderr`) from a command, script, or program into a file. |
+| `<COMMAND> 2>&1` | Redirect (`stderr`) to (`stdout`). It makes grep's easier as it will not let errors to be their own message |
 | `<COMMAND> 1> /dev/null` | Send `stdout to NULL so you only get errors | |grep -Eo <REGEX> <FILE> | grep a file and ONLY return what matched the regex, not the line | 
-| `export LESS="-ImNQRsX"` | Default less to: I Case Insensitive, `m` prompt verbose with percent in file, `N` Show line numbers (-n forces no line), `Q` terminal bell is never rung, `R` try to interpret colors, `s` "squeeze" consecutive blank lines into one, `X` Dont send termcap init/de-init | 
+| `export LESS="-ImNQRsX"` | Default less to: I Case Insensitive, `m` prompt verbose with percent in file, `N` Show line numbers (`-n` forces no line), `Q` terminal bell is never rung, `R` try to interpret colors, `s` "squeeze" consecutive blank lines into one, `X` Dont send termcap init/de-init | 
 | `vim -R` | Force vim to open file in read-only (`!` **can still override** ) |
 | `export <VARIABLE>=${<VARIABLE>:-<VALUE>}` | If` <VARIABLE>` is **NOT** set, then it will default to `<VALUE>` |
 | `findmnt --target <DIR/FILE>` | When you give it a path, the OS will try to find where at path is mounted by searching its parent. |
@@ -102,7 +102,7 @@ EOF
 
 1. Copy the .p12 or .pfx certificate file to your home directory 
 2. Generate an encryption key: `openssl pkcs12 -info -in <CERTIFICATE>. [pfx|p12] -nocerts -nodes -out <NAME>.key` 
-3. Generate a signing certificate: `openssl pkcs12 -in <CERTIFICATE>.pfx -clcerts -nokeys -out <NAME>_certificate.crt `
+3. Generate a signing certificate: `openssl pkcs12 -in <CERTIFICATE>.pfx -clcerts -nokeys -out <NAME>_certificate.crt`
   * for p12 -> pem: `openssl pkcs12 -in <CERTIFICATE>.p12 -c1certs -nokeys -out <NAME>_certificate.pem` 
 4. Generate a RSA encryption key: `openssl rsa -in <NAME>_encryption.key -out <NAME>_encryption.rsa`
 
@@ -148,7 +148,7 @@ Commands that are used to administrate a system. Probably needs Root
 | `openssl rsa -in <CERTIFICATE KEY> -noout -text` | Read the contents of a certificate key in RSA | 
 | `nc -zv <IP> <PORT>` | use NetCat to determine if a port is reachable on a remote host | 
 | `dd if=/dev/zero of=/dev/<DISK> bs=1M` | Write all zeros to a disk to completely wipe it (1 MB increments). Perfect for corrupt virtual volumes that are not the primary disk and all other actions have failed. <br> **"I'm Not Playing Around"** |
-| `firewall-cmd --set-log-denied=all` | Turn on firewall dropped packets logging (Logs stored in /var/log/firewalld_drop/`) | 
+| `firewall-cmd --set-log-denied=all` | Turn on firewall dropped packets logging (Logs stored in `/var/log/firewalld_drop/`) | 
 | `cat /proc/net/dev` | Lowest level of checking for all connected network interfaces. Also works in rescue or emergency mode. | 
 | `lsblk` | List all block devices and connected mounts | 
 | `Ishw` | Show all hardware attached to system and driver info | 
