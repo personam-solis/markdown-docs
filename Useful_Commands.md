@@ -32,7 +32,7 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `<COMMAND> 1> /dev/null` | Send `stdout to NULL so you only get errors | |grep -Eo <REGEX> <FILE> | grep a file and ONLY return what matched the regex, not the line | 
 | `export LESS="-ImNQRsX"` | Default less to: I Case Insensitive, `m` prompt verbose with percent in file, `N` Show line numbers (`-n` forces no line), `Q` terminal bell is never rung, `R` try to interpret colors, `s` "squeeze" consecutive blank lines into one, `X` Dont send termcap init/de-init | 
 | `vim -R` | Force vim to open file in read-only (`!` **can still override** ) |
-| `export <VARIABLE>=${<VARIABLE>:-<VALUE>}` | If` <VARIABLE>` is **NOT** set, then it will default to `<VALUE>` |
+| `export <VARIABLE>=${<VARIABLE>:-<VALUE>}` | If `<VARIABLE>` is **NOT** set, then it will default to `<VALUE>` |
 | `findmnt --target <DIR/FILE>` | When you give it a path, the OS will try to find where at path is mounted by searching its parent. |
 
 <br> 
