@@ -145,7 +145,7 @@ Commands that are used to administrate a system. Probably needs Root
 | `yum history rollback <ID_NUMBER>` | Revert all installed/modified packages to a previous state. |
 | `sar <SWITCH> -f /var/log/sa/<DAY_OF_MONTH>` | SA is a process that stores machine statistics into files every 10 minutes. Switches are: <br> `-A` Parse all stats <br> `-b` Parse I/O transactions <br> `-d` Parse Disk Utilization <br> `-n` Parse Network usage <br> `-u` Parse CPU statistics <br> `-r` Parse RAM max usage |
 | `df -i` | List inode usage statistics per mount (including network mounts) |
-|`openssl x509 -in <CERTIFICATE .pem> -noout -text | Read the contents of a certificate file in PEM format|
+|`openssl x509 -in <CERTIFICATE .pem> -noout -text` | Read the contents of a certificate file in PEM format|
 | `openssl rsa -in <CERTIFICATE KEY> -noout -text` | Read the contents of a certificate key in RSA |
 | `nc -zv <IP> <PORT>` | use NetCat to determine if a port is reachable on a remote host |
 | `dd if=/dev/zero of=/dev/<DISK> bs=1M` | Write all zeros to a disk to completely wipe it (1 MB increments). Perfect for corrupt virtual volumes that are not the primary disk and all other actions have failed. <br> **"I'm Not Playing Around"** |
