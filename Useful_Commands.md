@@ -174,7 +174,26 @@ Commands that are used to administrate a system. Probably needs Root
 
 ### LVM
 LVM Commands:
-
+* `` :
+* `pvcreate` : Create a physical volume. 
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` : 
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` :
+* `` : 
 
 Quick Partition:
 1. `pvcreate -f /dev/<BLOCK_DEVICE>`
