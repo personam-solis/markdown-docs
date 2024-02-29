@@ -158,6 +158,33 @@ Commands that are used to administrate a system. Probably needs Root
 | `multipath -11` | List number of HBA LUN/Volume Connections |
 | `blkid` | Get the UUID of all block level devices including partitions |
 
+
+<br>
+
+### Partition Standard Disks
+1. `parted -s /dev/<BLOCK_DEVICE> mklabel gpt`
+2. `parted -s /dev/<BLOCK_DEVICE> mkpart primary 1MiB 100%`
+3. `mkdir <MOUNT_POINT>`
+4. `echo "UUID=$(blkid -s UUID -o value /dev/mapper/vg_<NAME>-lv_<NAME>)     <MOUNT_POINT>    defaults,nodev,nosuid  1 2" >> /etc/fstab`
+5. `mount -a`
+
+<br>
+
+### LVM
+LVM Commands:
+
+
+Quick Partition:
+1. `parted -s /dev/<BLOCK_DEVICE> mklabel gpt`
+2. `pvcreate -f /dev/<BLOCK_DEVICE>`
+3. `vgcreate -f vg_<NAME> /dev/<BLOCK_DEVICE>`
+4. `lvcreate -l 100%FREE -n lv_<NAME> vg_<NAME>`
+5. `mkfs.xfs /dev/mapper/vg_<NAME>-lv_<NAME>`
+6. `mkdir <MOUNT_POINT>`
+7. `echo "UUID=$(blkid -s UUID -o value /dev/mapper/vg_<NAME>-lv_<NAME>)     <MOUNT_POINT>    defaults,nodev,nosuid  1 2" >> /etc/fstab`
+8. `mount -a`
+
+
 <br>
 
 ### Linux Self-Rescue
