@@ -175,14 +175,15 @@ LVM Commands:
 
 
 Quick Partition:
-1. `parted -s /dev/<BLOCK_DEVICE> mklabel gpt`
-2. `pvcreate -f /dev/<BLOCK_DEVICE>`
-3. `vgcreate -f vg_<NAME> /dev/<BLOCK_DEVICE>`
-4. `lvcreate -l 100%FREE -n lv_<NAME> vg_<NAME>`
-5. `mkfs.xfs /dev/mapper/vg_<NAME>-lv_<NAME>`
-6. `mkdir <MOUNT_POINT>`
-7. `echo "UUID=$(blkid -s UUID -o value /dev/mapper/vg_<NAME>-lv_<NAME>)     <MOUNT_POINT>    defaults,nodev,nosuid  1 2" >> /etc/fstab`
-8. `mount -a`
+1. `pvcreate -f /dev/<BLOCK_DEVICE>`
+2. `vgcreate -f vg_<NAME> /dev/<BLOCK_DEVICE>`
+3. `lvcreate -l 100%FREE -n lv_<NAME> vg_<NAME>`
+4. `mkfs.xfs /dev/mapper/vg_<NAME>-lv_<NAME>`
+5. `mkdir <MOUNT_POINT>`
+6. `chown -Rf <USER>:<GROUP> <MOUNT_POINT>`
+7. `chmod -Rf <NNN> <MOUNT_POINT>`
+8. `echo "UUID=$(blkid -s UUID -o value /dev/mapper/vg_<NAME>-lv_<NAME>)     <MOUNT_POINT>   xfs    defaults,nodev,nosuid  1 2" >> /etc/fstab`
+9. `mount -a`
 
 
 <br>
