@@ -165,8 +165,10 @@ Commands that are used to administrate a system. Probably needs Root
 1. `parted -s /dev/<BLOCK_DEVICE> mklabel gpt`
 2. `parted -s /dev/<BLOCK_DEVICE> mkpart primary 1MiB 100%`
 3. `mkdir <MOUNT_POINT>`
-4. `echo "UUID=$(blkid -s UUID -o value /dev/mapper/vg_<NAME>-lv_<NAME>)     <MOUNT_POINT>    defaults,nodev,nosuid  1 2" >> /etc/fstab`
-5. `mount -a`
+4. `chown -Rf <USER>:<GROUP> <MOUNT_POINT>`
+5. `chmod -Rf <NNN> <MOUNT_POINT>`
+6. `echo "UUID=$(blkid -s UUID -o value /dev/mapper/vg_<NAME>-lv_<NAME>)     <MOUNT_POINT>    defaults,nodev,nosuid  1 2" >> /etc/fstab`
+7. `mount -a`
 
 <br>
 
