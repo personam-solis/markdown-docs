@@ -167,7 +167,7 @@ Commands that are used to administrate a system. Probably needs Root
 3. `mkdir <MOUNT_POINT>`
 4. `chown -Rf <USER>:<GROUP> <MOUNT_POINT>`
 5. `chmod -Rf <NNN> <MOUNT_POINT>`
-6. `echo "UUID=$(blkid -s UUID -o value /dev/mapper/vg_<NAME>-lv_<NAME>)     <MOUNT_POINT>    defaults,nodev,nosuid  1 2" >> /etc/fstab`
+6. `echo "UUID=$(blkid -s UUID -o value /dev/<BLOCK_DEVICE>1)     <MOUNT_POINT>    defaults,nodev,nosuid  1 2" >> /etc/fstab`
 7. `mount -a`
 
 <br>
