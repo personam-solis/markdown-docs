@@ -34,6 +34,7 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `vim -R` | Force vim to open file in read-only (`!` **can still override** ) |
 | `export <VARIABLE>=${<VARIABLE>:-<VALUE>}` | If `<VARIABLE>` is **NOT** set, then it will default to `<VALUE>` |
 | `findmnt --target <DIR/FILE>` | When you give it a path, the OS will try to find where at path is mounted by searching its parent. |
+| `ldd <PATH_TO_PROGRAM>` | Get all libraries that are required by a program |
 
 <br> 
 
