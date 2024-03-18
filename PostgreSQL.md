@@ -190,6 +190,7 @@ These are some basic queries that are common and useful to general users.
 |---------------|---------|-------|
 | `SET search_path TO <SCHEMA>;` | Change the current search path | You can always use fully qualified objects `schema.object_name` |
 | `SELECT schemaname, tablename, tableowner FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') ORDER BY schemaname DESC;` | Show all tables across all schemas that are not part of the system | |
+| `CREATE INDEX <NAME> ON <TABLE> (<COLUMN>);` | Create an index on specific column in table | Always create indexes on the most executed and costly queries not a single query |
 
 <br>
 
