@@ -1,9 +1,11 @@
 # **PostgreSQL**
+
 These are some basic notes for PostgreSQL. Although you can run the below commands/query on *any* PG server, it is easier to use the supplied docker container.
 
 <br>
  
 ## **Docker Cheat-sheet:**
+
 * Run adhoc bash commands: `docker exec -u 'postgres:postgres' imdb-test /bin/bash -c '<COMMAND>'`
 * Log into DB server: `docker container exec -it imdb /bin/bash -c 'psql -U postgres -W -d imdbdata'`
 
@@ -11,6 +13,7 @@ These are some basic notes for PostgreSQL. Although you can run the below comman
 <br>
 
 ## **Info**
+
 Things to keep in mind
 
 * **Tablespaces** are sym linked inside of `$PGDATA/pg_tblspc` to map it back to the DB
@@ -23,6 +26,59 @@ Things to keep in mind
 
 <br>
 
+<br>
+
+### **Foreign Key**
+
+A Foreign key is a type of column constraint where it references another table's **Primary key**; it searches the column of the primary key to ensure that the value exists. 
+
+This is meant for insert statements where the value of an attribute **already** exists. If the value does not already exist, then the insert statement fails.
+
+```
+CREATE TABLE products (
+  product_no integer PRIMARY KEY,
+  name text,
+  price numeric
+);
+
+CREATE TABLE orders (
+  order_id serial PRIMARY KEY,
+  product_no integer REFERENCES products(product_no),
+  quantity smallint
+);
+```
+
+You can also do multiple columns:
+`FOREIGN KEY (col1, col2) REFERENCES other_table (col4, col5);`
+
+If you want the primary key to be deleted on all tables that it references, then you can add `ON DELETE CASCADE`
+
+<br>
+
+<br>
+
+### **Views**
+
+A view is a select statement that is auto created and can be referenced by a user.
+
+```
+CREATE VIEW <NAME> AS
+  SELECT...
+;
+```
+
+If you want the table to be dropped every time a user disconnects:
+
+```
+CREATE VIEW TEMP <NAME> AS
+  SELECT...
+;
+```
+
+<br>
+
+<br>
+
 ## **Data Types**
 
 Common data types for tables
@@ -30,6 +86,7 @@ Common data types for tables
 <br>
 
 ### **Numeric**
+
 | Name | Description | # | Name | Description |
 |------|-------------|---|------|-------------|
 | `smallint` | -32768 to +32767 | # | `integer` | -2147483648 to +2147483647 |
@@ -41,6 +98,7 @@ Common data types for tables
 <br>
 
 ### **Text**
+
 | Name | Description | # | Name | Description |
 |------|-------------|---|------|-------------|
 | `char(n)` | Variable-length with limit | # | `varchar(n)` | Fixed-length, blank-padded |
@@ -50,6 +108,7 @@ Common data types for tables
 <br>
 
 ### **Geometric**
+
 | Name | Description | # | Name | Description |
 |------|-------------|---|------|-------------|
 | `point` | Point on a plane : `(x,y)` | # | `line` | Infinite line: `{A,B,C}` <br> represented by linear equation `A`*x* + `B`*y* + `C` = 0 |
@@ -59,6 +118,7 @@ Common data types for tables
 <br>
 
 ### **Misc.**
+
 | Name | Description | # | Name | Description |
 |------|-------------|---|------|-------------|
 | `boolean` | `true` or `false` | # | `<DATA_TYPE>[]` | Array: Create a one-dimentional array (add `[]` for more) |
@@ -71,7 +131,9 @@ Common data types for tables
 <br>
 
 ## **Introspection Commands**
+
 Common and useful introspection commands
+
 | Command | Purpose | Notes |
 |---------|---------|-------|
 | `\?` | Shows all introspection commands | |
@@ -92,6 +154,7 @@ Common and useful introspection commands
 <br>
 
 ## **Admin Queries/Commands**
+
 These are some basic queries that are common and useful from an administrative perspective.
 
 | Query/Command | Purpose | Notes |
@@ -108,6 +171,7 @@ These are some basic queries that are common and useful from an administrative p
 <br>
 
 ## **Shell Commands**
+
 Commands used from the OS. This uses postgres utilities that are installed alongside the database engine.
 
 | Command | Purpose | Notes |
