@@ -35,13 +35,13 @@ A Foreign key is a type of column constraint where it references another table's
 This is meant for insert statements where the value of an attribute **already** exists. If the value does not already exist, then the insert statement fails.
 
 ```
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
   product_no integer PRIMARY KEY,
   name text,
   price numeric
 );
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
   order_id serial PRIMARY KEY,
   product_no integer REFERENCES products(product_no),
   quantity smallint
@@ -55,14 +55,12 @@ If you want the primary key to be deleted on all tables that it references, then
 
 <br>
 
-<br>
-
 ### **Views**
 
 A view is a select statement that is auto created and can be referenced by a user.
 
 ```
-CREATE VIEW <NAME> AS
+CREATE OR REPLACE VIEW <NAME> AS
   SELECT...
 ;
 ```
