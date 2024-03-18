@@ -49,7 +49,7 @@ Common data types for tables
 
 <br>
 
-### **Geometric.**
+### **Geometric**
 | Name | Description | # | Name | Description |
 |------|-------------|---|------|-------------|
 | `point` | Point on a plane : `(x,y)` | # | `line` | Infinite line: `{A,B,C}` <br> represented by linear equation `A`*x* + `B`*y* + `C` = 0 |
@@ -63,6 +63,8 @@ Common data types for tables
 |------|-------------|---|------|-------------|
 | `boolean` | `true` or `false` | # | `<DATA_TYPE>[]` | Array: Create a one-dimentional array (add `[]` for more) |
 | `inet` | Network Host IP or Network address with CIDR <br> (`192.168.0.0/24` or `192.168.0.1/24`) | # | `macaddr` | Network MAC address of a device <br> (`08:00:2b:01:02:03`, `08-00-2b-01-02-03`, or `08002b010203`) |
+| `timestamp` | Date and Time `YYYY-MM-DD hh:mm:dd`, you can include timezone | # | `date` | Date without time, several methods but just use `YYYY-MM-DD` |
+| `time` | Time without date `hh:mm:ss` Add timezone to end with `MST` | # | `interval <N> <UNIT>` | Positive or negative integer: <br> units - `year`, `month`, `week`, `day`, `hour`, `minute`, `second` |
 
 <br>
 
