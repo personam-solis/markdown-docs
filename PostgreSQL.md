@@ -3,11 +3,9 @@ These are some basic notes for PostgreSQL. Although you can run the below comman
 
 <br>
  
-**Docker Cheat-sheet:**
+## **Docker Cheat-sheet:**
 * Run adhoc bash commands: `docker exec -u 'postgres:postgres' imdb-test /bin/bash -c '<COMMAND>'`
 * Log into DB server: `docker container exec -it imdb /bin/bash -c 'psql -U postgres -W -d imdbdata'`
-
-
 
 <br>
 <br>
@@ -22,6 +20,51 @@ Things to keep in mind
   * `CREATE ROLE <ROLE_NAME> INHERIT;`
   * `GRANT <PERMISSIONS> TO <GROUP_ROLE>`
   * `GRANT <GROUP_ROLE> TO <EXISTING_ROLE;`
+
+<br>
+
+## **Data Types**
+
+Common data types for tables
+
+<br>
+
+### **Numeric**
+| Name | Description | # | Name | Description |
+|------|-------------|---|------|-------------|
+| `smallint` | -32768 to +32767 | # | `integer` | -2147483648 to +2147483647 |
+| `bigint` | -9223372036854775808 to +9223372036854775807 | # | `numeric` | Variable user-specified precision up to 131072 digits before the decimal point <br> up to 16383 digits after the decimal point |
+| `real` | Variable-precision 6 decimal digits precision | # | `double precision` | Variable-precision 15 decimal digits precision |
+| `smallserial` | Autoincrementing integer 1 to 32767 | # | `serial` | Autoincrementing integer 1 to 2147483647 |
+| `bigserial` | Autoincrementing integer 1 to 9223372036854775807 | # | `X` | X |
+
+<br>
+
+### **Text**
+| Name | Description | # | Name | Description |
+|------|-------------|---|------|-------------|
+| `char(n)` | Variable-length with limit | # | `varchar(n)` | Fixed-length, blank-padded |
+| `bpchar` | Variable unlimited length, blank-trimmed | # | `text` | Variable unlimited length |
+| `json` | JSON data types enforce each stored value is valid | # | `jsonb` | Data is stored in a decomposed binary format. <br> Slower to write, faster to process. |
+
+<br>
+
+### **Geometric.**
+| Name | Description | # | Name | Description |
+|------|-------------|---|------|-------------|
+| `point` | Point on a plane : `(x,y)` | # | `line` | Infinite line: `{A,B,C}` <br> represented by linear equation `A`*x* + `B`*y* + `C` = 0 |
+| `lseg` | Finite line segment : `((x1,y1),(x2,y2))` | # | `box` | Rectangular box : `((x1,y1),(x2,y2))` |
+| `polygon` | Polygon : `((x1,y1),...)` | # | `circle` | Circle (center point and radius): `<(x,y),r>` |
+
+<br>
+
+### **Misc.**
+| Name | Description | # | Name | Description |
+|------|-------------|---|------|-------------|
+| `boolean` | `true` or `false` | # | `<DATA_TYPE>[]` | Array: Create a one-dimentional array (add `[]` for more) |
+| `inet` | Network Host IP or Network address with CIDR <br> (`192.168.0.0/24` or `192.168.0.1/24`) | # | `macaddr` | Network MAC address of a device <br> (`08:00:2b:01:02:03`, `08-00-2b-01-02-03`, or `08002b010203`) |
+
+<br>
 
 <br>
 
