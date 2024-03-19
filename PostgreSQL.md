@@ -4,7 +4,7 @@ These are some basic notes for PostgreSQL. Although you can run the below comman
 
 <br>
  
-## **Docker Cheat-sheet:**
+## **Docker Cheat-sheet**
 
 * Run adhoc bash commands: `docker exec -u 'postgres:postgres' imdb-test /bin/bash -c '<COMMAND>'`
 * Log into DB server: `docker container exec -it imdb /bin/bash -c 'psql -U postgres -W -d imdbdata'`
@@ -34,7 +34,7 @@ A Foreign key is a type of column constraint where it references another table's
 
 This is meant for insert statements where the value of an attribute **already** exists. If the value does not already exist, then the insert statement fails.
 
-```
+```sql
 CREATE TABLE IF NOT EXISTS products (
   product_no integer PRIMARY KEY,
   name text,
@@ -53,13 +53,22 @@ You can also do multiple columns:
 
 If you want the primary key to be deleted on all tables that it references, then you can add `ON DELETE CASCADE`
 
+**Another way to do it**
+
+```sql
+CONSTRAINT fk_customer
+      FOREIGN KEY(customer_id) 
+      REFERENCES customers(customer_id)
+      ON DELETE SET NULL
+```
+
 <br>
 
 ### **Views**
 
 A view is a select statement that is auto created and can be referenced by a user.
 
-```
+```sql
 CREATE OR REPLACE VIEW <NAME> AS
   SELECT...
 ;
@@ -67,7 +76,7 @@ CREATE OR REPLACE VIEW <NAME> AS
 
 If you want the table to be dropped every time a user disconnects:
 
-```
+```sql
 CREATE VIEW TEMP <NAME> AS
   SELECT...
 ;
@@ -128,6 +137,22 @@ Common data types for tables
 
 <br>
 
+## **Tables Cheat-Sheet**
+
+| Line | Purpose |
+|------|---------|
+| `DROP TABLE IF EXISTS` | Drop a table if it exists |
+| `CREATE TABLE <NAME> (` <br> `<COLUMN> INT GENERATED ALWAYS AS IDENTITY);` | This clause creates the column as an identity column. It will have an implicit sequence attached to it and the column in new rows will automatically have values from the sequence assigned to it. Such a column is implicitly NOT NULL |
+| `PARTITION OF parent_table { FOR VALUES partition_bound_spec \| DEFAULT }` | Creates the table as a partition of the specified parent table. The table can be created either as a partition for specific values using FOR VALUES or as a default partition using DEFAULT |
+| `TABLESPACE tablespace_name` | Store table in specific tablespace |
+| `FOREIGN KEY (<COLUMN>) REFERENCES <Ref-Table> (<Ref-Column>) ON DELETE RESTRICT ` | Produce an error indicating that the deletion or update would create a foreign key constraint violation |
+| `UNIQUE (<COLUMN>) NULLS DISTINCT` | Ensure that the values in a column are distinct and ignore NULL, add `NULLS NOT DISTINCT` to reverse |
+| `ALTER TABLE <NAME> ADD <NEW_COLUMN> <DATATYPE\|OPTIONS>;` | Add a new column to a table |
+
+<br>
+
+<br>
+
 ## **Introspection Commands**
 
 Common and useful introspection commands
@@ -151,6 +176,8 @@ Common and useful introspection commands
 
 <br>
 
+<br>
+
 ## **Admin Queries/Commands**
 
 These are some basic queries that are common and useful from an administrative perspective.
@@ -165,6 +192,8 @@ These are some basic queries that are common and useful from an administrative p
 | `ALTER TABLE <TABLE> SET SCHEMA <SCHEMA>;` | Add an existing table to a schema | *WARNING: You can break everything if you do this. Understand ALL views, functions, and Triggers.* |
 | `SELECT inet_server_addr();` | Get the IP(s) that the server listens on | |
 | `SELECT inet_server_port();` | Get the port that the server listens on | |
+
+<br>
 
 <br>
 
@@ -196,19 +225,20 @@ These are some basic queries that are common and useful to general users.
 
 <br>
 
+## **INSERT**
+
+| Command | Purpose |
+|---------|---------|
+| `INSERT INTO <table_name> AS <alias>` | Insert as another role |
+| `INSERT INTO .... RETURNING *` | Returning gives you an output and is like a select statement. this outputs what you inserted to verify |
+| `INSERT INTO films VALUES ('UA502', 'Bananas', 105, '1971-07-13', 'Comedy');` | Simple insert that assumes you are inserting in the order of the columns |
+| `INSERT INTO films (code, title, did) VALUES ('T_601', 'Yojimbo', 106);` | Specify the column then their values |
+
+<br>
+
+<br>
+
 ## **Functions**
-
-<br>
-
-<br>
-
-## **Triggers**
-
-<br>
-
-<br>
-
-## **Partition**
 
 <br>
 
