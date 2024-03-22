@@ -44,7 +44,7 @@ logs.sort(key=lambda x:(x.split()[1:], x.split()[0]))
 
 <br>
 
-## **__str__ and __repr__ class methods**
+### **__str__ and __repr__ class methods**
 
 The `__str__()` method returns a human-readable, or informal, string representation of an object. This method is called by the built-in `print()`, `str()`, and `format()` functions.
 
@@ -78,6 +78,24 @@ print(str(c))
 # The creature type is Jellyfish and the age is 5
 print(repr(c))
 # Ocean('Jellyfish', 5)
+```
+
+<br>
+
+<br>
+
+### **List Comprehension**
+
+A list comp is a way to quickly make a list based on some action
+
+list = [ `expression(element)` _for_ `element` _in_ `oldList` _if_ `condition` ] 
+
+```python
+[i for i in range(11) if i % 2 == 0] # Even Numbers
+
+[i*10 for i in range(1, 6)] # "tens": 10, 20, 30, 40
+
+[num for num in range(100) if num % 5 == 0 if num % 10 == 0] # "tens" up to 100
 ```
 
 <br>
