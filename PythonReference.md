@@ -44,4 +44,44 @@ logs.sort(key=lambda x:(x.split()[1:], x.split()[0]))
 
 <br>
 
+## **__str__ and __repr__ class methods**
+
+The `__str__()` method returns a human-readable, or informal, string representation of an object. This method is called by the built-in `print()`, `str()`, and `format()` functions.
+
+The `__repr__()` method returns a more information-rich, or official, string representation of an object. This method is called by the built-in `repr()` function. If possible, the string returned should be a valid Python expression that can be used to recreate the object
+
+```python
+mydate = datetime.datetime.now()
+
+print("__str__() string: ", mydate.__str__())
+# __str__() string:  2023-01-27 09:50:37.429078
+print("str() string: ", str(mydate))
+# str() string:  2023-01-27 09:50:37.429078
+
+print("__repr__() string: ", mydate.__repr__())
+# __repr__() string:  datetime.datetime(2023, 1, 27, 9, 50, 37, 429078)
+print("repr() string: ", repr(mydate))
+# repr() string:  datetime.datetime(2023, 1, 27, 9, 50, 37, 429078)
+
+
+class Ocean:
+    def __init__(self, sea_creature_name, sea_creature_age):
+        self.name = sea_creature_name
+        self.age = sea_creature_age
+    def __str__(self):
+        return f'The creature type is {self.name} and the age is {self.age}'
+    def __repr__(self):
+        return f'Ocean(\'{self.name}\', {self.age})'
+
+c = Ocean('Jellyfish', 5)
+print(str(c))
+# The creature type is Jellyfish and the age is 5
+print(repr(c))
+# Ocean('Jellyfish', 5)
+```
+
+<br>
+
+<br>
+
 ## **Non-Standard Libraries**
