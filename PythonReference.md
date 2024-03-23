@@ -102,4 +102,27 @@ list = [ `expression(element)` _for_ `element` _in_ `oldList` _if_ `condition` ]
 
 <br>
 
+### **Dictionary**
+
+```python
+Dict = {'Name': 'Geeks', 1: [1, 2, 3, 4]}
+
+# accessing a element using key
+print("Accessing a element using key:")
+print(Dict['Name'])
+ 
+# accessing a element using get()
+# method
+print("Accessing a element using get:")
+print(Dict.get(1))
+ 
+# creation using Dictionary comprehension
+myDict = {x: x**2 for x in [1,2,3,4,5]}
+print(myDict)
+```
+
+<br>
+
+<br>
+
 ## **Non-Standard Libraries**
