@@ -127,15 +127,76 @@ print(myDict)
 
 ### **Heap**
 
-heapq` module in Python provides the heap data structure that is mainly used to represent a priority queue. The property of this data structure is that it always gives the smallest element (min heap) whenever the element is popped. Whenever elements are pushed or popped, heap structure is maintained. The heap[0] element also returns the smallest element each time. It supports the extraction and insertion of the smallest element in the O(log n) times.
+Heaps are a way to create and manage a queue. Queues help manage an array in the order that you want based on setting a predetermined priority attribute.
+
+* An element with high priority is dequeued before an element with low priority.
+* If two elements have the same priority, they are served according to their order in the queue.
+
+`heapq` module in Python provides the heap data structure that is mainly used to represent a priority queue. The property of this data structure is that it always gives the smallest element (min heap) whenever the element is _popped_. **Whenever elements are pushed or popped, heap structure is maintained.** The `heap[0]` element also returns the smallest element each time. It supports the extraction and insertion of the smallest element in the $O\log_{n}$ times.
 
 Generally, Heaps can be of two types:
 
-Max-Heap: In a Max-Heap the key present at the root node must be greatest among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree.
-Min-Heap: In a Min-Heap the key present at the root node must be minimum among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree
+* **Max-Heap:** In a Max-Heap the key present at the root node must be greatest among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree.
+* **Min-Heap:** In a Min-Heap the key present at the root node must be minimum among the keys present at all of it’s children. The same property must be recursively true for all sub-trees in that Binary Tree
+
+```python
+import heapq
+
+li = [5, 7, 9, 1, 3]
+
+# using heapify to convert list into heap
+heapq.heapify(li)
+print (list(li))
+# [1, 3, 9, 7, 5]
+
+# using heappush() to push elements into heap
+heapq.heappush(li, 4)
+print (list(li))
+# [1, 3, 4, 7, 5, 9]
+
+# using heappop() to pop smallest element
+print (heapq.heappop(li))
+# 1
+```
 
 <br>
 
 <br>
+
+### **Set**
+
+Python set is a mutable collection of data that does not allow any duplication. Sets are basically used to include membership testing and eliminating duplicate entries.
+
+```python
+chicken = set([1, 2, 3, 4, 'chick', 5, 4, 3, 'chick'])
+# {1, 2, 3, 4, 'chick', 5}
+
+# Convert list into a set to remove duplicates if you dont care about it staying in order
+chick = [1, 2, 3, 4, 5, 6, 4, 3, 2]
+chick = set(chick)
+```
+
+<br>
+
+<br>
+
+### **Breadth-First Search**
+
+Search algorithm that looks at neighboring nodes in a graph, and only visits a node once.
+
+Take Array:
+
+```python
+graph = [
+    [1, 0, 1, 1, 0, 0],
+    [1, 1, 0, 1, 0, 0],
+    [0, 1, 1, 0, 0, 1],
+    [0, 0, 0, 1, 0, 1]
+]
+```
+
+Calculate how many nodes are a group of 1's. AKA island problem
+
+(look at the [jupyter notebook](Python/breadth_first_search.ipynb))
 
 ## **Non-Standard Libraries**
