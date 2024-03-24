@@ -125,6 +125,31 @@ print(myDict)
 
 <br>
 
+### **Yield**
+
+The yield statement suspends a function’s execution and sends a value back to the caller, but retains enough state to enable the function to resume where it left off. When the function resumes, it continues execution immediately after the last yield run. This allows its code to produce a series of values over time, rather than computing them at once and sending them back like a list.
+
+```python
+# generator to print even numbers
+def print_even(test_list):
+    for i in test_list:
+        if i % 2 == 0:
+            yield i
+ 
+# initializing list
+test_list = [1, 4, 5, 6, 7]
+ 
+# printing even numbers
+for j in print_even(test_list):
+    print(j, end=" ")
+
+# 4 6
+```
+
+<br>
+
+<br>
+
 ### **Heap**
 
 Heaps are a way to create and manage a queue. Queues help manage an array in the order that you want based on setting a predetermined priority attribute.
