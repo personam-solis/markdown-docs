@@ -176,6 +176,8 @@ chick = [1, 2, 3, 4, 5, 6, 4, 3, 2]
 chick = set(chick)
 ```
 
+While a set is mutable, you can use `frozenset()` to create an immutable set that can be iterated over, but will never change.
+
 <br>
 
 <br>
@@ -215,6 +217,15 @@ result = list(map(multiple, numbers1, numbers2))
 # Make all strings in a list upper
 result = list(map(str.upper, the_string))
 ```
+
+<br>
+
+<br>
+
+### **Recursive Functions**
+
+**memory:**
+When any function is called from main(), the memory is allocated to it on the stack. A recursive function calls itself, the memory for a called function is allocated on top of memory allocated to the calling function and a different copy of local variables is created for each function call. When the base case is reached, the function returns its value to the function by whom it is called and memory is de-allocated and the process continues.
 
 <br>
 
