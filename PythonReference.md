@@ -180,6 +180,46 @@ chick = set(chick)
 
 <br>
 
+### **Map**
+
+The built-in `map()` function allows you to execute a fucntion (and lambda) on an iterable; it then returns another iterable _object_ which can easily be turned into a list.
+
+With map, you can also iterate over multiple iterables if the function takes that number of iterables
+
+```python
+def double(n):
+    return n * 2
+
+numbers = (1, 2, 3, 4, 5)
+result = map(double, numbers)
+
+print(list(result))
+# [2, 4, 6, 8, 10]
+
+#same result:
+numbers = (1, 2, 3, 4, 5)
+result = map(lambda x: x * 2, numbers)
+
+
+#multiple iterables
+def multiple(x, y):
+    return x * y
+
+numbers1 = (1, 2, 3, 4, 5)
+numbers2 = (6, 7, 8, 9, 10)
+
+result = list(map(multiple, numbers1, numbers2))
+# [6, 14, 24, 36, 50]
+
+
+# Make all strings in a list upper
+result = list(map(str.upper, the_string))
+```
+
+<br>
+
+<br>
+
 ### **Breadth-First Search**
 
 Search algorithm that looks at neighboring nodes in a graph, and only visits a node once.
