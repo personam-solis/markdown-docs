@@ -50,6 +50,10 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `git branch -D <BRANCH>` | Delete a local branch | 
 | `git reflog expire --expire=4.weeks.ago` | Expire history older than 4 weeks |
 | `git gc` | "Garbage Collecting" Clean the current working directory and remove old references, prune loose objects older than 2 weeks, and compress objects. (obsolete if maintenance is on) | 
+| `git worktree <COMMAND>` | Git worktree allows you to work on multiple branches simultaniously without stashing. This is done by creating a new directory that is still attached to the HEAD. Below are the arguments with standard practices |
+| `git worktree ls` | When ran from the repo or worktree directory, list all worktrees |
+| `git worktree add ../<REPO>_wt/<BRANCH_NAME>` | Check out another branch into another directory. By default whatever the child directory is, git will assume that is the branch name |
+| `git worktree rm ../<REPO>_wt/<BRANCH_NAME>` | Delete the worktree (does not delete the `<REPO>_wt` parent |
 | `git repack && git prune-packed` | Review all changes in current working dir and repack them, then prune packs that no longer exist. (obsolete if maintenance is on) 
 | `git maintenance start` | Instead of manually running cleanup commands, this runs a cleanup cron every HOUR in the background. This helps git run a lot faster. The maintenance that it performs is: <br> - **gc:** disabled <br> - **commit-graph:** hourly <br> - **pre-fetch:** hourly <br> - **loose-objects:** daily <br> - **incremental-repack:** daily <br> - **pack-refs:** none | 
 | `git config --global alias.<NAME> <COMMAND W/O "git">` | Create a git alias that allows you to perform a command. DONT put the `git` keyword in the command portion. Run with `git <ALIAS>` | 
@@ -66,8 +70,8 @@ Dont forget to start each with `git config --global`
 | Alias | Truncated Command | Description | 
 |-------|-------------------|-------------|
 | `alias.staash` | `'stash --all'` | Stash all uncommitted changes | 
-| `alias.del` | `'branch -D'` | Delete a local branch. Supply branch name at the end 
-| `alias.delr` | `'push origin --delete'` | Delete a **REMOTE** branch. Supply branch name at the end | 
+| `alias.b-` | `'branch -D'` | Delete a local branch. Supply branch name at the end 
+| `alias.b--` | `'push origin --delete'` | Delete a **REMOTE** branch. Supply branch name at the end | 
 | `alias.polish` | `'!git repack; git prune-packed; git gc'` | Do a full cleanup of the current branch | 
 | `alias.expire` | `'reflog expire --expire=4.weeks.ago'` | Do a reflog on the current repo | 
 | `alias.ls` | `'branch'` | List the local tracked branches | 
@@ -78,6 +82,9 @@ Dont forget to start each with `git config --global`
 | `alias.BBL` | `'blame -w -C -C -C -L'` | "BIG BLAME" for specific lines in a file: `git BBL <START_LINE>, <END_LINE> <FILE>` | 
 | `alias.wdiff` | `'diff --word-diff'` | Instead of showing *lines* of the diff, only show specific **items** that were changed in the location of the file |
 | `alias.red` | `'rebase -i development'` | Rebase the specified branch from development | 
+| `alias.wtls` | `worktree list` | List all worktrees |
+| `alias.wt+` | `worktree add` | Add a worktree in specified dir `git wt+ ../repo_wt/development` |
+| `alias.wt-` | `worktree remove` | Remove a worktree by specifying its path |
 
 <br>
 
