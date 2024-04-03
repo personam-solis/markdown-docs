@@ -10,6 +10,22 @@ This is a quick reference to some uncommon and forgetable actions. There is very
 
 <br>
 
+### Throw away var
+
+If you want to loop something without having to worry about iteration, you can use the python "throw-away" variable `_` so the interpreter does not expect a value to exist or a variable to be used
+
+```python
+# Loop 10 times
+
+for _ in range(10):
+    do_a_thing()
+
+```
+
+<br>
+
+<br>
+
 ### **Searching with Lambda**
 
 You can use lambda to perform a custom sort; this works by the lambda performing an operation on each _element_.This applies to both the `sorted` library and the `.sort()` module.
@@ -305,5 +321,79 @@ for char in rev:
 # s
 ```
 
+<br>
+
+<br>
+
+### Decorators
+
+You can run code "in-between" a function by creating a decorator that has a wrapper function. 
+
+Remember:
+* Decorators "wrap" a function. so the first one listed is executed first, then the second one
+* Decorators must take in any function argument, so it needs to be explicitly state it will
+
+```python
+from math import sqrt
+import logging
+from typing import Any, Callable
+import functools
+
+logging.basicConfig(level=logging.DEBUG,
+    format="$(asctime)s | %(levelname)s | PID %(process)d - %(message)s",
+    datefmt="%Y%m%d %H:%M:%S")
+
+# Create the function that will be a decorator by taking in another function
+# This gets logging information from a function
+def log(func: Callable[..., Any]) -> Callable[..., Any]:
+    @functools.wraps(func) # fix naming issues when getting function names in decorators
+    def wrapper(*args: Any, **kwargs: Any) -> Any: # Take in any args for the wrapper
+        logging.info(f"Calling: \'{func.__name__}\'")
+        process = func(*args: Any, **kwargs: Any) # Take in any function
+        all_args = locals()
+        logging.debug(f"{func.__name__} was called with the arguments:\n{all_args}")
+        logging.debug(f"{func.__name__} defaults are: {func.__defaults__}")
+        logging.info(f"Finished calling function: \'{func.__name__}\'")
+        return process # return the function back
+    return wrapper
+
+# How to get a prime but with the wrapper
+@log
+def is_prime(number: int) -> bool:
+    if number < 2:
+        return False
+    for element in range(2, int(sqrt(number)) +1):
+        if number % element == 0:
+            return False
+    return True
+```
+
+<br>
+
+<br>
+
+### Multiprocessing
+
+Pools are the easiest way to do multiprocessing.
+
+* DO NOT USE IF THE COST OF RUNNING THE FUNCTION EXCEEDS USING MULTITHREADDING
+* By default each process has its own memory and interpreter so they CANNOT get variables from eachothers memory
+
+```python
+from multiprocessing import Pool
+
+# multiprocessing.Pool([processes[, initializer[, initargs]]])
+with Pool(processes=4) as pool:
+    result = pool.map(funct1, ['arg1', 'arg2', 'arg3])
+
+
+# You can also get results unordered (return as soon as result is ready)
+with Pool(processes=4) as pool:
+    # return an iterable object, but return it as soon as result is ready
+    results = pool.imap_unordered(funct1, ['arg1', 'arg2', 'arg3])
+
+    for i in results: # Calling the iterable is what blocks the process and when all elements are called, the program continues
+        funct2(i)
+```
 
 ## **Non-Standard Libraries**
