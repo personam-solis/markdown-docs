@@ -1,0 +1,28 @@
+{
+    "IDX.aI.enableInlineCompletion": true,
+    "IDX.aI.enableCodebaseIndexing": true,
+    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.startupEditor": "none",
+    "editor.cursorStyle": "block",
+    "editor.minimap.enabled": false,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.copyWithSyntaxHighlighting": false,
+    "terminal.integrated.copyOnSelection": true,
+    "editor.emptySelectionClipboard": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.inlineSuggest.showToolbar": "always",
+    "workbench.settings.enableNaturalLanguageSearch": true,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "**/.hg/store/**": true,
+        "**/.cache/**":true,
+        "**/.config/**":true
+    } ,
+    "git.enabled": true,
+    "git.autofetch": true
+}
