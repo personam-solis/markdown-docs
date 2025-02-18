@@ -26,6 +26,33 @@ for _ in range(10):
 
 <br>
 
+### **Ellipsis**
+
+In Python, `...` is a short-hand for the Ellipsis object part of the Ellipsis type which is a literal used for multiple things.
+
+* When used in a function, it basically has the same effect as using the `pass` statement, except it can be treated as a value
+    ```python
+    def my_func():
+        return ... # works
+
+    def my_func():
+        return pass # SyntaxError
+    ```
+    * `pass` is more used when the implementation is **supposed** to be empty, whereas `...` is used when the implementation is **missing**
+* When used in slicing a multi-dimentional array, it selects all remaining dimentions:
+    * `my_array[0, ..., 2]` takes the first index in the first dimention, third index in the last dimention, then all indicies in the dimentions in between.
+* Other Libraries like fastapi and pydantic it is used when a value is required but you dont want python to set the default value
+* Used in annotation to denote returning any number of a object. Useful when returning a tuple that you dont know the size
+    ```python
+    # Any number of integers
+    def my_func() -> tuple[int, ...]: 
+        return 1, 2, 3, 4
+    ```
+
+<br>
+
+<br>
+
 ### **Searching with Lambda**
 
 You can use lambda to perform a custom sort; this works by the lambda performing an operation on each _element_.This applies to both the `sorted` library and the `.sort()` module.
