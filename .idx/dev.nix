@@ -9,6 +9,7 @@
     # pkgs.go
     pkgs.python312
     pkgs.conda
+    pkgs.python312Packages.conda
     # pkgs.python311Packages.pip
     # pkgs.nodejs_20
     # pkgs.nodePackages.nodemon
@@ -57,16 +58,11 @@
         conda-setup = ''
           #!/bin/bash
           set -e
-          # Check if conda is installed, if not install it
-          if ! command -v conda &> /dev/null; then
-            echo "Conda not found, installing..."
-          fi
-          # Initialize conda
-          eval "$(conda shell.bash hook)"
-          conda init bash
-          conda create -n python12 python=3.12 pip -y
-          echo "Conda environment 'python12' with Python 3.12 is ready."
 
+          # Initialize conda
+          conda init bash
+          conda create -n default312 python=3.12 jupyter boto3 pyyaml psycopg2 sqlite pip -y
+          echo "Conda environment 'default312' with Python 3.12 is ready."
         '';
       };
       # Runs when the workspace is (re)started
@@ -75,7 +71,7 @@
         # watch-backend = "npm run watch-backend";
         
         activate-conda = ''
-          conda activate python12
+          conda activate default312
         '';      };
     };
   };

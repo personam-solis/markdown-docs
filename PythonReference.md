@@ -2,11 +2,181 @@
 
 This is a quick reference to some uncommon and forgetable actions. There is very little context, and if you need to install a package, it is listed in another section.
 
+- [**Python Reference**](#python-reference)
+  - [**Templates**](#templates)
+    - [**Argparse**](#argparse)
+    - [**Logging**](#logging)
+  - [**Standard Library**](#standard-library)
+    - [Basic Things](#basic-things)
+    - [Throw away var](#throw-away-var)
+    - [**Ellipsis**](#ellipsis)
+    - [**Searching with Lambda**](#searching-with-lambda)
+    - [**__str__ and __repr__ class methods**](#str-and-repr-class-methods)
+    - [**List Comprehension**](#list-comprehension)
+    - [**Dictionary**](#dictionary)
+    - [**Yield**](#yield)
+    - [**Heap**](#heap)
+    - [**Set**](#set)
+    - [**Map**](#map)
+    - [**Recursive Functions**](#recursive-functions)
+    - [**Breadth-First Search**](#breadth-first-search)
+    - [Playing with classes](#playing-with-classes)
+    - [Decorators](#decorators)
+    - [Multiprocessing](#multiprocessing)
+  - [**Non-Standard Libraries**](#non-standard-libraries)
+
+
+<br>
+
+<br>
+
+## **Templates**
+
+### **Argparse**
+
+```python
+import argparse
+
+
+def user_input() -> argparse.ArgumentParser:
+    """
+    Create a new argparse object if the program you want logging does not currently
+    have an argparse object.
+
+    Returns:
+        parser_args (argparse.Namespace): The object created by the user input
+    """
+
+    parser = argparse. ArgumentParser (description="""
+Debug and info logging enabled on this program
+ """, formatter_class=argparse.RawDescriptionHelpFormatter)
+
+    parser.add_argument('--debug', action='store_true',
+                        help='Run debug logging on the program')
+    parser.add_argument('--info', action='store_true',
+                        help='Run info logging on the program')
+    parser_args = parser.parse_args()
+
+    return parser
+
+
+def main()
+    # build argparse object
+    parser = user_input()
+
+    # If no input is given, print help and raise error
+    if len(sys.argv()) == 1:
+        parser.print_help()
+        raise argparse.ArgumentError("NO ARGUMENT GIVEN!!!")
+
+    # Process and store user arguments
+    input_args = parser.parse_args()
+
+
+if __name__ == '__main__':
+    main()
+```
+
+<br>
+
+### **Logging**
+
+(Using argparse and wrapper)
+
+```python
+import logging
+import argparse
+from typing import Any, Callable
+
+
+def add_log_arg(parser: argparse. ArgumentParser) -> argparse. ArgumentParser:
+    """
+    Simply add log arguments to a pre-made argument parser when imported.
+
+    Args:
+        parser (): An argument parser object before arguments are stored.
+    Returns:
+        parser.add_argument: Additional arguments of --info and --debug
+    """
+    parser.add_argument('--debug', action='store_true',
+                        help='Run debug logging on the program')
+    parser.add_argument('--info', action='store_true',
+                        help='Run info logging on the program')
+    return parser
+
+
+def set_logging(parser_args: argparse.Namespace) -> argparse.Namespace:
+    """
+    Set the logging level based on the user's input
+
+    Args:
+        parse_args (argparse. Namespace): The object created by the user input
+    Returns:
+        logging (obj): Logging config object
+    """
+    if parser_args.debug:
+        logging.basicConfig(level=logging.DEBUG,
+            format="%(asctime)s | %(levelname)s | PID: %(process)d - %(message)s",
+            datefmt="%Y%m%d %H:%M:%S")
+        logging.getLogger()
+        return logging
+    elif parser_args.info:
+        logging.basicConfig(level=logging.INFO,
+            format="%(levelname)s: % (message)s")
+        logging.getLogger()
+        return logging
+    else:
+        logging.basicConfig(level=logging.WARNING)
+        logging.getLogger()
+        return logging
+
+
+def log(func: Callable[..., Any]) -> Callable[..., Any]:
+    """
+    Decorator to create detailed logging for functions and classes
+    """
+
+    def wrapper (*args: Any, **kwargs: Any) -> Any: # Take in any args for the wrapper
+        logging.info(f"Calling function: \'{func._name__}\'")
+        process = func(*args, **kwargs) # Take any function from the input
+        all_args = locals()
+        logging.debug(f" {func._name_} was called with the arguments: \n{all_args}")
+        logging.debug(f" {func._name_} defaults are: {func._defaults_}")
+        logging.debug(f"Finished calling function: \'{func._name_}\'")
+
+        return process # Return the function back
+
+    return wrapper # Return the entire wrapper with function
+
+
+def main()
+    # build argparse object
+    parser = user_input()
+    add_log_arg(parser)
+
+    # If no input is given, print help and raise error
+    if len(sys.argv()) == 1:
+        parser.print_help()
+        raise argparse.ArgumentError("NO ARGUMENT GIVEN!!!")
+
+    # Process and store user arguments
+    input_args = set_logging(parser.parse_args())
+
+```
+
 <br>
 
 <br>
 
 ## **Standard Library**
+
+<br>
+
+### Basic Things
+
+
+
+<br>
 
 <br>
 
@@ -19,7 +189,6 @@ If you want to loop something without having to worry about iteration, you can u
 
 for _ in range(10):
     do_a_thing()
-
 ```
 
 <br>
@@ -91,7 +260,7 @@ logs.sort(key=lambda x:(x.split()[1:], x.split()[0]))
 
 The `__str__()` method returns a human-readable, or informal, string representation of an object. This method is called by the built-in `print()`, `str()`, and `format()` functions.
 
-The `__repr__()` method returns a more information-rich, or official, string representation of an object. This method is called by the built-in `repr()` function. If possible, the string returned should be a valid Python expression that can be used to recreate the object
+The `__repr__()` magic method returns a more information-rich, or official, string representation of an object. This method is called by the built-in `repr()` function. If possible, the string returned should be a valid Python expression that can be used to recreate the object. MAKE DETAILED!
 
 ```python
 mydate = datetime.datetime.now()
