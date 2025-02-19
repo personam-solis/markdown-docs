@@ -172,6 +172,7 @@ Commands that are used to administrate a system. Probably needs Root
 | `chronyc tracking` | Get stats for chrony config (/etc/chrony.conf) |
 | `chronyc makestep` | Force chrony to step to accurate time |
 | `openssl s_client -connect <SERVERNAME>: <PORT> -showcerts` | Check the certificates of a remote or local server by specifying a port. This shows you if the certificates are installed, and the client is able to verify the server cert. |
+| `openssl verify -CApath <CA_PATH> -CAfile <CA_CERT> <SERVER_CERT>` | Check if a server cert successfully authenticates to specific CA |
 | `journalctl -axe` | look at logs even if it has very long lines (`-a`) with explanation text if available (`-x`) and go to the most recent line (`-e`) |
 | `journalctl -u <SERVICE>` | Show journal for a unit/service (Can be combined with any other argument) |
 | `journalctl -axf -u <SERVICE>` | Follow (`-f`) a service even during service restart |
