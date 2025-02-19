@@ -9,6 +9,42 @@ These are all commands that are useful and common that sometimes I forget. There
 ## User 
 Regular commands **not** needing sudo. Useful for almost everyone 
 
+### PyCharm Shortcuts
+| Key | Description | 
+|---------|-------------|
+| `F3` | Go to the next item when using find |
+| `F7` | Next conflict in the Conflict Resolver page |
+| `F11` | Create a bookmark on selected line(s) |
+| `Ctrl` + `Alt` + `Z` | Revert changes to current line(s) |
+| `Ctrl` `B` | Go to where var/func/method is defined |
+| `Ctrl` + `Alt` + `B` | Go to the implementations of the selected var/func/method/class |
+| `Ctrl` + `Shift` + `N` | Search for a file in the project |
+| `Ctrl` + `Shift` + __space__ | Run Code Complete on the current selection |
+| `Ctrl` + `Alt` __up/downarrow__ | If selection is a block of __block__ of code, move it up or down |
+| `Alt` + __left/rightarrow__ | Switch open file/tab |
+| `Shift` + `Delete` | Delete the entire selected line (adds to clipboard) |
+| `Ctrl` + `Alt` + `Shift` + `D` | Diff current file with branch HEAD<br>CUSTOM: "Compare with the Same Repository Version" |
+| `Ctrl` + `Alt` + `Shift` + `H` | Show Git History for selected lines<br>CUSTOM: "Show history for selection" |
+| `Ctrl` + `Alt` + `Shift` + `A` | Show annotations (Select name for history)<br>CUSTOM: "Annotate" |
+| `Alt` + `1` | Go to Project/Files toolbar |
+| `Alt` + `2` | Go to Bookmarks toolbar |
+| `Alt` + `4` | Go to Run toolbar |
+| `Alt` + `5` | Go to Debug toolbar |
+| `Alt` + `6` | Go to Problems toolbar |
+| `Alt` + `7` | Go to Structure toolbar |
+| `Alt` + `9` | Go to Git toolbar |
+
+
+**Live Templates**
+| Shorthand | Description | 
+|---------|-------------|
+| `myprint` | Annoying print statement to track things |
+| `ifmain` | Insert a generic `if '__main__' == __name__` |
+| `myenv` | Insert custom python environment header `#!/usr/bin/env/python3` |
+| `myarg` | Insert custom generic argparse |
+| `compdi` | Dictionary comprehenstion with an if statement |
+| `compli` | List comprehension with an if statement |
+
 <br> 
 
 ### OS Cheat-sheet
