@@ -24,7 +24,8 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `Alt` + __left/rightarrow__ | Switch open file/tab |
 | `Shift` + `Delete` | Delete the entire selected line (adds to clipboard) |
 | `Ctrl` + `Alt` + `Shift` + `D` | Diff current file with branch HEAD<br>CUSTOM: "Compare with the Same Repository Version" |
-| `Ctrl` + `Alt` + `Shift` + `H` | Show Git History for selected lines<br>CUSTOM: "Show history for selection" |
+| `Ctrl` + `Alt` + `Shift` + `H` | Show Git History for selected __lines__<br>CUSTOM: "Show history for selection" |
+| `Ctrl` + `Alt` + `Shift` + `Y` | Show Git History for selected **file**<br>CUSTOM: "Show history" |
 | `Ctrl` + `Alt` + `Shift` + `A` | Show annotations (Select name for history)<br>CUSTOM: "Annotate" |
 | `Ctrl` + `Alt` + `Shift` + `C` | In editor, copy file relative path (in relation to repo) and current line number |
 | `Alt` + `1` | Go to Project/Files toolbar |
