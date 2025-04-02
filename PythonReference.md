@@ -8,6 +8,7 @@ This is a quick reference to some uncommon and forgetable actions. There is very
     - [**Logging**](#logging)
   - [**Standard Library**](#standard-library)
     - [Basic Things](#basic-things)
+    - [Regex](#regex)
     - [Throw away var](#throw-away-var)
     - [**Ellipsis**](#ellipsis)
     - [**Searching with Lambda**](#searching-with-lambda)
@@ -175,6 +176,16 @@ def main()
 ### Basic Things
 
 
+
+<br>
+
+<br>
+
+### Regex
+
+Helpful things to remember:
+
+* Get the string that matched: `re.search(r'PATTERN', string).group()`
 
 <br>
 
