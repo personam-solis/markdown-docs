@@ -73,7 +73,7 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `export <VARIABLE>=${<VARIABLE>:-<VALUE>}` | If `<VARIABLE>` is **NOT** set, then it will default to `<VALUE>` |
 | `findmnt --target <DIR/FILE>` | When you give it a path, the OS will try to find where at path is mounted by searching its parent. |
 | `ldd <PATH_TO_PROGRAM>` | Get all libraries that are required by a program |
-| `<COMMAND/SCRIPT> &`\b`disown -h` | Run something in the background, then disown the process so it runs even if user is logged out |
+| `<COMMAND/SCRIPT> &`\n`disown -h` | Run something in the background, then disown the process so it runs even if user is logged out |
 | `find <DIR> -regextype posix-extended -regex '<REGEX>'` | Run find using regex on whole path |
 | `:set paste` | To prevent VIM from auto indenting, commenting, and formatting run this vim command. You still need to go into insert mode |
 
