@@ -31,6 +31,8 @@ This is a quick reference to some uncommon and forgetable actions. There is very
 
 <br>
 
+------------------
+
 ## **Templates**
 
 ### **Argparse**
@@ -181,15 +183,55 @@ def main()
 
 <br>
 
+------------------
+
 ### Regex
 
 Helpful things to remember:
 
-* Get the string that matched: `re.search(r'PATTERN', string).group()`
+* "Word": continuous letters, numbers, or underscore
+* Get the string that matched:
+  * Gets exactly what was matched as a **list** `re.search(r'PATTERN', string).group()`
+  * Only returns NON-REPEATING values`re.findall(r'PATTERN', string)[0]`
+
+<u>**Regex Symbols**</u>
+| Symbol | Purpose |
+| ------ | ------- |
+| `^` | Begging of the string (Sometimes means NOT) |
+| `$` | End of string |
+| `.` | Any single character |
+| `\` | Escape next character or signal a special sequence |
+| `\d` | Any digit |
+| `\s` | Any empty character (space, tab) |
+| `\b` | Word boundary. Will match if not part of a word. (Does not play nicely with other special matches) |
+| `()` | Group of characters |
+| `{}` | Specify the number of occurrences (min/mx) |
+| `[]` | A set of characters |
+| `*` | Zero or infinite instances of a character |
+| `?` | Zero or one instance of a character |
+| `+` | One or infinite instances of a character |
+| `\|` | OR |
+
+<br>
+
+<u>**Regex Uses**</u>
+| Regex | Description |
+| ----- | ----------- |
+| `\d{14}\.pdf$` | Filename that ends with a 14-digit timestamp and `.pdf` |
+| `(off\|OFF)` | Match either lower or upper but NOT a combination of upper and lower |
+| `[a-m]{2,8}` | Contains a minimum of 2 letters and up to eight but only letters A through M |
+| `^\s*` | Might contain empty spaces at the beginning of a line (like in a linux config file) |
+| `[^acd]` | Anything that does NOT contain _a, c, d_ |
+| `(aa\|^aaa)` | Match `aa` but NOT `aaa` |
+| `[^0-9]` | Anything that is NOT a number |
+| `\d{7,}` | Match all numnbers that are a minimum of 7 digits long |
+| `\bis\b` | `This island is for buisness` will only match "`is`" sicne it is surrounded by empty space |
 
 <br>
 
 <br>
+
+------------------
 
 ### Throw away var
 
@@ -205,6 +247,8 @@ for _ in range(10):
 <br>
 
 <br>
+
+------------------
 
 ### **Ellipsis**
 
@@ -232,6 +276,8 @@ In Python, `...` is a short-hand for the Ellipsis object part of the Ellipsis ty
 <br>
 
 <br>
+
+------------------
 
 ### **Searching with Lambda**
 
@@ -266,6 +312,8 @@ logs.sort(key=lambda x:(x.split()[1:], x.split()[0]))
 <br>
 
 <br>
+
+------------------
 
 ### **__str__ and __repr__ class methods**
 
@@ -307,6 +355,8 @@ print(repr(c))
 
 <br>
 
+------------------
+
 ### **List Comprehension**
 
 A list comp is a way to quickly make a list based on some action
@@ -324,6 +374,8 @@ list = [ `expression(element)` _for_ `element` _in_ `oldList` _if_ `condition` ]
 <br>
 
 <br>
+
+------------------
 
 ### **Dictionary**
 
@@ -347,6 +399,8 @@ print(myDict)
 <br>
 
 <br>
+
+------------------
 
 ### **Yield**
 
@@ -372,6 +426,8 @@ for j in print_even(test_list):
 <br>
 
 <br>
+
+------------------
 
 ### **Heap**
 
@@ -411,6 +467,8 @@ print (heapq.heappop(li))
 
 <br>
 
+------------------
+
 ### **Set**
 
 Python set is a mutable collection of data that does not allow any duplication. Sets are basically used to include membership testing and eliminating duplicate entries.
@@ -429,6 +487,8 @@ While a set is mutable, you can use `frozenset()` to create an immutable set tha
 <br>
 
 <br>
+
+------------------
 
 ### **Map**
 
@@ -470,6 +530,8 @@ result = list(map(str.upper, the_string))
 
 <br>
 
+------------------
+
 ### **Recursive Functions**
 
 **memory:**
@@ -478,6 +540,8 @@ When any function is called from main(), the memory is allocated to it on the st
 <br>
 
 <br>
+
+------------------
 
 ### **Breadth-First Search**
 
@@ -532,6 +596,8 @@ for char in rev:
 
 <br>
 
+------------------
+
 ### Decorators
 
 You can run code "in-between" a function by creating a decorator that has a wrapper function. 
@@ -579,6 +645,8 @@ def is_prime(number: int) -> bool:
 
 <br>
 
+------------------
+
 ### Multiprocessing
 
 Pools are the easiest way to do multiprocessing.
@@ -602,5 +670,29 @@ with Pool(processes=4) as pool:
     for i in results: # Calling the iterable is what blocks the process and when all elements are called, the program continues
         funct2(i)
 ```
+
+<br>
+
+<br>
+
+------------------
+
+### **Dataclasses**
+
+A dataclass is a python class which helps reduce the number of "boiler plate" code (Code that repeats with little variance). It is used to store data, state, and perform some basic actions to data such as validation.
+
+* Type hint integration
+* Immutability support
+* Utility functions
+* Better readability
+* Better portability
+
+<br>
+
+<u></u>
+
+<br>
+
+<br>
 
 ## **Non-Standard Libraries**
