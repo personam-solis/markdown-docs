@@ -702,6 +702,7 @@ def PROPERTY_NAME(self): # Dont use words like "get", "generate", or "build"
 <br>
 
 <u>**Dataclass Basic**</u>
+
 ```python
 @dataclass
 class Circle:
@@ -725,6 +726,7 @@ print(circle_2)
 <br>
 
 <u>**Validation**</u>
+
 This performs a "global" validation on every instance created instead if puttting if/else everywhere
 
 ```python
@@ -749,6 +751,7 @@ circle_2 = Circle(label="test2", count=0, x_coord=2.0, y_coord=2.0, radius=.5)
 <br>
 
 <u>**Defaults**</u>
+
 You can do both complicated and simple defaults. You can also have it where a proeprty is ONLY computed once no matter how many times the instance is passed around.
 
 ```python
@@ -778,6 +781,7 @@ class User:
 <br>
 
 <u>**Custom Constructors**</u>
+
 You can create a custom contructors to make creating instances easier
 
 ```python
@@ -814,6 +818,7 @@ user_1 = User.from_email("john-doe@example.com")
 ```
 
 <u>**Serialization Helpers**</u>
+
 built-in ways to convert data to dictionary or tuples
 
 ```python
