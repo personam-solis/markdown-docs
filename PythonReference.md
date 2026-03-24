@@ -684,12 +684,20 @@ A dataclass is a python class which helps reduce the number of "boiler plate" co
 `from dataclasses import dataclass`
 
 
-* Type hint integration
-* Immutability support: `@dataclass(frozen=True)`
-* Utility functions
 * Better readability
 * Better portability
 * You can print the object and get something readable back
+* Type hint integration: `chicken: str`
+* Immutability support: `@dataclass(frozen=True)`
+* Force ordered object so the ENTIRE object can be compared: `@dataclass(ordered=True)`
+* Utility methods: `__post_init__`
+* Better memory usafe by deleting instance dictionary and keep only attributes: `@dataclass(frozen=True, slots=True)`
+* Force using keywords when creating instance: `@dataclass(kw_only=True)`
+* Get a generated result that runs each time method is executed:
+```python
+@property
+def PROPERTY_NAME(self): # Dont use words like "get", "generate", or "build"
+```
 
 <br>
 
@@ -717,7 +725,7 @@ print(circle_2)
 <br>
 
 <u>**Validation**</u>
-This performs a "global" validation on every child created instead if puttting if/else everywhere
+This performs a "global" validation on every instance created instead if puttting if/else everywhere
 
 ```python
 @dataclass
@@ -741,7 +749,7 @@ circle_2 = Circle(label="test2", count=0, x_coord=2.0, y_coord=2.0, radius=.5)
 <br>
 
 <u>**Defaults**</u>
-You can do both complicated and simple defaults
+You can do both complicated and simple defaults. You can also have it where a proeprty is ONLY computed once no matter how many times the instance is passed around.
 
 ```python
 from dataclasses import dataclass, field
@@ -750,10 +758,101 @@ from dataclasses import dataclass, field
 class User:
     first: str
     last: str
+    full_name: str = ""
     email: str
+    # Regular Default
     phone: str = '863-5555'
+    # Safe Complicated field
     active_projects: list[str] = field(default_factory=list[str])
+    # Derrived Field
+    user_url: str = field(init=False)
 
+    def __post_init__(self) -> None:
+        self.first = self.first.strip().title() # First letter capital
+        self.last = self.last.strip().title()
+        self.full_name = f"{self.first} {self.last}"
+        generate = self.full_name.lower().replace(" ", "-")
+        self.user_url = generate
+```
+
+<br>
+
+<u>**Custom Constructors**</u>
+You can create a custom contructors to make creating instances easier
+
+```python
+from dataclasses import dataclass, field
+from typing import Self
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class User:
+    first: str
+    last: str
+    full_name: str = ""
+    email: str
+    # Regular Default
+    phone: str = '863-5555'
+    # Safe Complicated field
+    active_projects: list[str] = field(default_factory=list[str])
+    # Derrived Field
+    user_url: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.first = self.first.strip().title() # First letter capital
+        self.last = self.last.strip().title()
+        self.full_name = f"{self.first} {self.last}"
+        generate = self.full_name.lower().replace(" ", "-")
+        self.user_url = generate
+
+    @classmethod
+    def from_email(cls, email: str) -> Self:
+        local_first, local_last = email.split("@")[0].replace("-", " ").split()
+        return cls(first=local_first, last=local_last, email=email)
+
+# Create a user just from the email
+user_1 = User.from_email("john-doe@example.com")
+```
+
+<u>**Serialization Helpers**</u>
+built-in ways to convert data to dictionary or tuples
+
+```python
+from dataclasses import dataclass, field, asdict, astuple
+from typing import Self
+
+@dataclass(frozen=True, kw_only=True, slots=True)
+class User:
+    first: str
+    last: str
+    full_name: str = ""
+    email: str
+    # Regular Default
+    phone: str = '863-5555'
+    # Safe Complicated field
+    active_projects: list[str] = field(default_factory=list[str])
+    # Derrived Field
+    user_url: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.first = self.first.strip().title() # First letter capital
+        self.last = self.last.strip().title()
+        self.full_name = f"{self.first} {self.last}"
+        generate = self.full_name.lower().replace(" ", "-")
+        self.user_url = f"{generate}.local.com"
+
+    @classmethod
+    def from_email(cls, email: str) -> Self:
+        local_first, local_last = email.split("@")[0].replace("-", " ").split()
+        return cls(first=local_first, last=local_last, email=email)
+
+# Create a user just from the email
+user_1 = User.from_email("john-doe@example.com")
+
+print(asdict(user_1))
+print(astuple(user_1))
+
+# {'first': 'John', 'last': 'Doe', 'full_name': 'John Doe', 'email': 'john-doe@example.com', 'phone': '863-5555', 'active_projects': [], 'user_url': 'john-doe.local.com'}
+# ('John', 'Doe', 'john-doe@example.com')
 ```
 
 <br>
