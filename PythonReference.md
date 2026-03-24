@@ -24,6 +24,7 @@ This is a quick reference to some uncommon and forgetable actions. There is very
     - [Playing with classes](#playing-with-classes)
     - [Decorators](#decorators)
     - [Multiprocessing](#multiprocessing)
+    - [Dataclasses](#dataclasses)
   - [**Non-Standard Libraries**](#non-standard-libraries)
 
 
@@ -680,16 +681,80 @@ with Pool(processes=4) as pool:
 ### **Dataclasses**
 
 A dataclass is a python class which helps reduce the number of "boiler plate" code (Code that repeats with little variance). It is used to store data, state, and perform some basic actions to data such as validation.
+`from dataclasses import dataclass`
+
 
 * Type hint integration
-* Immutability support
+* Immutability support: `@dataclass(frozen=True)`
 * Utility functions
 * Better readability
 * Better portability
+* You can print the object and get something readable back
 
 <br>
 
-<u></u>
+<u>**Dataclass Basic**</u>
+```python
+@dataclass
+class Circle:
+    label: str
+    count: int
+    x_coord: float
+    y_coord: float
+    radius: float
+
+
+circle_1 = Circle(label="test1", count=1, x_coord=1.0, y_coord=1.0, radius=.5)
+circle_2 = Circle(label="test2", count=1, x_coord=2.0, y_coord=2.0, radius=.5)
+
+print(circle_1)
+print(circle_2)
+
+# Circle(label="test1", count=1, x_coord=1.0, y_coord=1.0, radius=.5)
+# Circle(label="test2", count=1, x_coord=2.0, y_coord=2.0, radius=.5)
+```
+
+<br>
+
+<u>**Validation**</u>
+This performs a "global" validation on every child created instead if puttting if/else everywhere
+
+```python
+@dataclass
+class Circle:
+    label: str
+    count: int
+    x_coord: float
+    y_coord: float
+    radius: float
+
+    def __post_init__(self) -> None:
+        if self.count <= 0 or self.radius =< 0:
+            raise ValueError("Count and Radius must be larger than 0")
+
+circle_1 = Circle(label="test1", count=1, x_coord=1.0, y_coord=1.0, radius=-.5)
+circle_2 = Circle(label="test2", count=0, x_coord=2.0, y_coord=2.0, radius=.5)
+
+# Both will give error
+```
+
+<br>
+
+<u>**Defaults**</u>
+You can do both complicated and simple defaults
+
+```python
+from dataclasses import dataclass, field
+
+@dataclass
+class User:
+    first: str
+    last: str
+    email: str
+    phone: str = '863-5555'
+    active_projects: list[str] = field(default_factory=list[str])
+
+```
 
 <br>
 
