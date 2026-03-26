@@ -686,6 +686,12 @@ A dataclass is a python class which helps reduce the number of "boiler plate" co
 
 * Better readability
 * Better portability
+* Auto creates:
+  * `__eq__`
+  * `__hash__`
+  * `__init__`
+  * `__repr__`
+  * `__gt__`, `__ge__`, `__lt__`, `__le__`
 * You can print the object and get something readable back
 * Type hint integration: `chicken: str`
 * Immutability support: `@dataclass(frozen=True)`
@@ -753,6 +759,11 @@ circle_2 = Circle(label="test2", count=0, x_coord=2.0, y_coord=2.0, radius=.5)
 <u>**Defaults**</u>
 
 You can do both complicated and simple defaults. You can also have it where a proeprty is ONLY computed once no matter how many times the instance is passed around.
+* Use default factory for complex or mutable types in defaults
+* You can modify how eatch attribute acts:
+  * `compare=False`: Attribute is not included in the suto genereated compare
+  * `hash=False`: Dont hash the attribute
+  * `repr=False`: Dont show when printing
 
 ```python
 from dataclasses import dataclass, field
