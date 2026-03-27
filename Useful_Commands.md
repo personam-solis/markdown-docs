@@ -90,6 +90,7 @@ Regular commands **not** needing sudo. Useful for almost everyone
 | `git pull` | Perform a fetch, then merge into branch using `merge` or `rebase` |
 | `git branch -D <BRANCH>` | Delete a local branch | 
 | `git reflog expire --expire=4.weeks.ago` | Expire history older than 4 weeks |
+| `git reset --soft <master\|dev\|main> ; git commit -m "Squash" ; git push origin <BRANCH> --force-with-lease` | Quickly squash all of the commits on current branch by moving the branch pointer and creating a new commit |
 | `git gc` | "Garbage Collecting" Clean the current working directory and remove old references, prune loose objects older than 2 weeks, and compress objects. (obsolete if maintenance is on) | 
 | `git worktree <COMMAND>` | Git worktree allows you to work on multiple branches simultaniously without stashing. This is done by creating a new directory that is still attached to the HEAD. Below are the arguments with standard practices |
 | `git worktree ls` | When ran from the repo or worktree directory, list all worktrees |
