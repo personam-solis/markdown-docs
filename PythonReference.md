@@ -178,7 +178,16 @@ def main()
 
 ### Basic Things
 
-
+<u>**Assignment Operators**</u>
+| Op | Use/Method |
+| -- | ---------- |
+| `-=` | Subtract and store from item `__isub__(self, other)` |
+| `+=` | Add and store from item `__iadd__(self, other)` |
+| `*=` | Multiply and store from item `__imul__(self, other)` |
+| `/=` | **True divide** and store from item `__itruediv__(self, other)` |
+| `//=` | Floor divide and store from item `__ifloordiv__(self, other)` |
+| `%=` | Modulus and store from item `__imod__(self, other)` |
+| `**=` | Power and store from item `__ipow__(self, other)` |
 
 <br>
 
