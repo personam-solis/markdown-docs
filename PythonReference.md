@@ -6,6 +6,7 @@ This is a quick reference to some uncommon and forgetable actions. There is very
   - [**Templates**](#templates)
     - [**Argparse**](#argparse)
     - [**Logging**](#logging)
+    - [**Spinner**](#spinner)
   - [**Standard Library**](#standard-library)
     - [Basic Things](#basic-things)
     - [Regex](#regex)
@@ -170,9 +171,9 @@ def main()
 
 <br>
 
-### **Logging**
+### **Spinner**
 
-(Using argparse and wrapper)
+(Loading spinner)
 
 ```python
 import time
