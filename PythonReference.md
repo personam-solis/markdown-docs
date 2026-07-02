@@ -170,6 +170,56 @@ def main()
 
 <br>
 
+### **Logging**
+
+(Using argparse and wrapper)
+
+```python
+import time
+import itertools
+import threading
+
+class Spinner:
+    """
+    Display a rotating line in case you want to make sure suppressing logs are not
+    hiding the fact that something froze or the CPU is taxed.
+
+    Execute with:
+        spin = Spinner()
+        spin.start()
+
+        spin.stop()
+
+    Args:
+      message (str): What message to display while spinner is running
+
+    Methods:
+      start: Start the spinner in the background
+      stop: Stop the spinner
+    """
+
+    def __init__(self, message="Working..."):
+        self.message = message
+        self.running = False
+        self.spinner = itertools.cycle(['|', '/', '-', '\\'])
+
+    def start(self):
+        self.running = True
+        def spin():
+            while self.running:
+                print(f"\r{self.message} {next(self.spinner)}", end="", flush=True)
+                time.sleep(0.2)
+        
+        # Run the spinner in the background in a new thread
+        threading.Thread(target=spin).start()
+
+    def stop(self):
+        self.running = False
+        print(f"\r{self.message} Done!")
+```
+
+<br>
+
 <br>
 
 ## **Standard Library**
